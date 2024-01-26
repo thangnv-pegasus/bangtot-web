@@ -2,6 +2,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../redux/slices/counter-slice";
 import Layout from "../components/layout";
+import Banner from "../components/slider-banner";
+import Service from "../components/service-scroll";
 
 const Home = () => {
   const count = useSelector((state) => state.counter.value);
@@ -11,18 +13,11 @@ const Home = () => {
   return (
     <>
       <Layout>
-        This is home page
-        <div>
-          <button
-            className="border-2 border-solid border-[#ccc] p-2"
-            onClick={() => dispatch(decrement())}
-          >
-            decre
-          </button>
-          <span className="mx-2">{count}</span>
-          <button className="border-2 border-solid border-[#ccc] p-2">
-            incre
-          </button>
+        <div className="py-24">
+          <Banner />
+          <div className="max-w-container mx-auto">
+            <Service />
+          </div>
         </div>
       </Layout>
     </>

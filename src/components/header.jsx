@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBagShopping,
   faMagnifyingGlass,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
+import { MdOutlineShoppingBag } from "react-icons/md";
 
 const Header = () => {
   return (
-    <div>
+    <div className="bg-white shadow-slate_bottom fixed left-0 top-0 right-0 z-40">
       <div className="max-w-container mx-auto flex items-center">
         <Link to={routers.home} className="block">
           <img
@@ -18,19 +18,52 @@ const Header = () => {
             alt="logo"
           />
         </Link>
-        <div className="flex-1"></div>
-        <ul className="flex text-lg font-normal">
-          <li>
+        <div className="flex-1 flex items-center justify-center font-medium text-base py-4">
+          <Link
+            to=""
+            className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-yellow-700"
+          >
+            Trang chủ
+          </Link>
+          <Link
+            to=""
+            className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-yellow-700"
+          >
+            Giới thiệu
+          </Link>
+          <Link
+            to=""
+            className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-yellow-700 relative"
+          >
+            Sản phẩm
+            <div className="absolute w-container"></div>
+          </Link>
+          <Link
+            to=""
+            className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-yellow-700"
+          >
+            Tin tức
+          </Link>
+          <Link
+            to=""
+            className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-yellow-700"
+          >
+            Liên hệ
+          </Link>
+        </div>
+        <ul className="flex text-lg items-center font-normal">
+          <li className="ml-4">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </li>
-          <li>
+          <li className="ml-4">
             <FontAwesomeIcon icon={faUser} />
           </li>
-          <li>
+          <li className="ml-4">
             <FontAwesomeIcon icon={faHeart} />
           </li>
-          <li>
-            <FontAwesomeIcon icon={faBagShopping} />
+          <li className="ml-4 text-[22px]">
+            {/* <FontAwesomeIcon icon={faBagShopping} /> */}
+            <MdOutlineShoppingBag />
           </li>
         </ul>
       </div>
