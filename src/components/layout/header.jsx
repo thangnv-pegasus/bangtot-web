@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import routers from "../config/router";
+import routers from "../../config/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -7,9 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import MegaMenu from "./mega-menu";
+import MegaMenu from "../mega-menu";
 import { useDispatch, useSelector } from "react-redux";
-import { OPEN_SEARCH } from "../redux/slices/search-modal-slice";
+import { OPEN_SEARCH } from "../../redux/slices/search-modal-slice";
 
 const Header = () => {
   const searchModal = useSelector((state) => state.searchModal);

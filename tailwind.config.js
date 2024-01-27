@@ -23,6 +23,9 @@ export default {
         baseColor: '#627c24',
         baseBg: '#7bab20'
       },
+      borderColor: {
+        baseColor: '#627c24',
+      },
       animation: {
         marquee: "marquee 30s linear infinite",
         marquee2: "marquee2 30s linear infinite",
