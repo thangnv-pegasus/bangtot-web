@@ -8,6 +8,10 @@ const publicRouter = [
     }
 ]
 
+const priveRouter = [
+
+]
 
 
-export {publicRouter}
+
+export {publicRouter, priveRouter}

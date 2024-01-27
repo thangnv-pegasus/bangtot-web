@@ -25,7 +25,7 @@ const Banner = () => {
       }}
       navigation={true}
       modules={[Autoplay, Pagination, Navigation]}
-      className="mySwiper"
+      className="mySwiper select-none"
     >
       <SwiperSlide>
         <div className="w-full">
