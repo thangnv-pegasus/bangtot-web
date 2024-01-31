@@ -2,17 +2,20 @@
 .swiper-button-prev {
   background-color: rgb(31 41 55);
   right: 10px;
-  padding: 24px;
+  width: 34px;
+  height: 34px;
   color: white !important;
   fill: black !important;
   stroke: black !important;
-  font-size: 20px;
+  font-size: 16px;
+  text-align: center;
   border-radius: 100%;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev::after {
-  font-size: 20px;
+  
+  font-size: 14px;
 }
 
 .swiper-button-next:hover,

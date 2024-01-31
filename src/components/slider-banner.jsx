@@ -29,17 +29,17 @@ const Banner = () => {
     >
       <SwiperSlide>
         <div className="w-full">
-          <img src={img1} alt="" className="w-full h-full"/>
+          <img src='https://via.placeholder.com/1600x600' alt="" className="w-full h-full"/>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="w-full">
-          <img src={img2} alt="" className="w-full h-full"/>
+          <img src="https://via.placeholder.com/1600x600" alt="" className="w-full h-full"/>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="w-full">
-          <img src={img3} alt="" className="w-full h-full"/>
+          <img src="https://via.placeholder.com/1600x600" alt="" className="w-full h-full"/>
         </div>
       </SwiperSlide>
     </Swiper>

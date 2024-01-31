@@ -30,6 +30,7 @@ export default {
         marquee: "marquee 30s linear infinite",
         marquee2: "marquee2 30s linear infinite",
         fadeIn: "fadeIn 0.3s ease-in",
+        enlarge: 'enlarge 0.2s linear'
       },
       keyframes: {
         marquee: {
@@ -44,6 +45,16 @@ export default {
           "0%": { transform: "translate(-50%,50%)",opacity: "0", left: "50%" },
           "100%": { transform: "translate(-50%,0%)", opacity: "1", left: "50%" },
         },
+        enlarge: {
+          '0%': {
+            transform: 'scale(0)',
+            opacity: '0'
+          },
+          '100%':{
+            transform: 'scale(1)',
+            opacity: '1'
+          }
+        }
       },
     },
   },
