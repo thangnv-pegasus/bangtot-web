@@ -9,6 +9,7 @@ import Title from "../components/title";
 
 import Collections from "../components/collections";
 import Collection from "../components/collections/feature-collection";
+import Blogs from "../components/blogs";
 const Home = () => {
   return (
     <>
@@ -23,16 +24,16 @@ const Home = () => {
           </div>
           {/* collections */}
           <Collections />
-
-          {/* feature collections */}
-          <Collection showLink={true} title={"Bảng phấn"} path="" />
-
           {/* feature collections */}
           <Collection showLink={true} title={"Bảng phấn"} path="" />
           {/* feature collections */}
           <Collection showLink={true} title={"Bảng phấn"} path="" />
           {/* feature collections */}
           <Collection showLink={true} title={"Bảng phấn"} path="" />
+          {/* feature collections */}
+          <Collection showLink={true} title={"Bảng phấn"} path="" />
+          {/* blogs */}
+          <Blogs />
         </div>
       </Layout>
     </>

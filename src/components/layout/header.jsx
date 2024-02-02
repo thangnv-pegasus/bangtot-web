@@ -30,7 +30,7 @@ const Header = () => {
           className={({ isActive }) => checkActive(isActive) + " block"}
         >
           <img
-            src="https://bizweb.dktcdn.net/100/494/385/themes/919262/assets/logo.png?1703641115968"
+            src="https://via.placeholder.com/240x50"
             alt="logo"
           />
         </NavLink>

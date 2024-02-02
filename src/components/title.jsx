@@ -7,7 +7,7 @@ const Title = ({
   classess,
 }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center py-2">
       <h1 className={`text-xl font-medium uppercase ${classess}`}>{title}</h1>
       {showLink && (
         <Link
