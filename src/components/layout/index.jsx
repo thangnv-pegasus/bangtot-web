@@ -11,7 +11,9 @@ const Layout = ({ children }) => {
     <>
       <Header />
 
+      <div className="py-24">
       {children}
+      </div>
 
       <Footer />
       {searchStatus && <Search />}

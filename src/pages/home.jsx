@@ -14,27 +14,25 @@ const Home = () => {
   return (
     <>
       <Layout>
-        <div className="py-24">
-          {/* banner slider */}
-          <Banner />
+        {/* banner slider */}
+        <Banner />
 
-          {/* service auto scroll */}
-          <div className="shadow-slate_bottom">
-            <Service />
-          </div>
-          {/* collections */}
-          <Collections />
-          {/* feature collections */}
-          <Collection showLink={true} title={"Bảng phấn"} path="" />
-          {/* feature collections */}
-          <Collection showLink={true} title={"Bảng phấn"} path="" />
-          {/* feature collections */}
-          <Collection showLink={true} title={"Bảng phấn"} path="" />
-          {/* feature collections */}
-          <Collection showLink={true} title={"Bảng phấn"} path="" />
-          {/* blogs */}
-          <Blogs />
+        {/* service auto scroll */}
+        <div className="shadow-slate_bottom">
+          <Service />
         </div>
+        {/* collections */}
+        <Collections />
+        {/* feature collections */}
+        <Collection showLink={true} title={"Bảng phấn"} path="" />
+        {/* feature collections */}
+        <Collection showLink={true} title={"Bảng phấn"} path="" />
+        {/* feature collections */}
+        <Collection showLink={true} title={"Bảng phấn"} path="" />
+        {/* feature collections */}
+        <Collection showLink={true} title={"Bảng phấn"} path="" />
+        {/* blogs */}
+        <Blogs />
       </Layout>
     </>
   );

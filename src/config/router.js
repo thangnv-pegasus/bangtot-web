@@ -1,6 +1,6 @@
 const routers = {
     home: '/',
-    intro: '/gioi-thieu',
+    about: '/gioi-thieu',
     products: '/san-pham',
     blogs: '/tin-tuc',
     contact: '/lien-he',

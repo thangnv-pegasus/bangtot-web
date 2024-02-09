@@ -10,8 +10,13 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import MegaMenu from "../mega-menu";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_SEARCH } from "../../redux/slices/search-modal-slice";
+import axios from "axios";
+import instance from "../../axios/config";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [collection, setCollection] = useState([]);
+  const [collectionItems, setCollectionItems] = useState([])
   const searchModal = useSelector((state) => state.searchModal);
   const cartUser = useSelector((state) => state.cart);
   const dispath = useDispatch();
@@ -22,6 +27,22 @@ const Header = () => {
       return "text-black";
     }
   };
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await instance.get("home", {
+          method: "get",
+        });
+        const { collections, collectionItems } = res.data.data;
+        setCollection(collections);
+        setCollectionItems(collectionItems)
+      } catch (error) {}
+    }
+
+    fetchData();
+  }, []);
+
+
   return (
     <div className="bg-white shadow-slate_bottom fixed left-0 top-0 right-0 z-40 scroll-smooth">
       <div className="max-w-container mx-auto flex items-center">
@@ -29,10 +50,7 @@ const Header = () => {
           to={routers.home}
           className={({ isActive }) => checkActive(isActive) + " block"}
         >
-          <img
-            src="https://via.placeholder.com/240x50"
-            alt="logo"
-          />
+          <img src="https://via.placeholder.com/240x50" alt="logo" />
         </NavLink>
         <div className="flex-1 flex items-center justify-center font-medium text-base py-4">
           <NavLink
@@ -46,7 +64,7 @@ const Header = () => {
             Trang chủ
           </NavLink>
           <NavLink
-            to={routers.intro}
+            to={routers.about}
             // className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             className={({ isActive }) =>
               checkActive(isActive) +
@@ -69,7 +87,7 @@ const Header = () => {
                 <FontAwesomeIcon icon={faSortDown} />
               </p>
             </NavLink>
-            <MegaMenu />
+            <MegaMenu collections={collection} collectionItems={collectionItems} />
           </div>
           <NavLink
             to={routers.blogs}
