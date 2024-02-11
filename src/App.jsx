@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { publicRouter } from "./router";
+import { useSelector } from "react-redux";
 
 function App() {
   return (
@@ -12,6 +13,5 @@ function App() {
     </Routes>
   );
 }
-
 
 export default App;

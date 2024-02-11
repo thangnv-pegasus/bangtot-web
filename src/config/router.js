@@ -4,8 +4,8 @@ const routers = {
     products: '/san-pham',
     blogs: '/tin-tuc',
     contact: '/lien-he',
-    login: 'dang-nhap',
-    register: 'dang-ky'
+    login: '/dang-nhap',
+    register: '/dang-ky'
 }
 
 export default routers

@@ -34,7 +34,8 @@ export default {
         fadeIn: "fadeIn 0.3s ease-in",
         enlarge: "enlarge 0.2s linear",
         shaking: "shaking 1s linear infinite",
-        zoom: 'zoom 1s linear infinite'
+        zoom: 'zoom 1s linear infinite',
+        fadeIn2: 'fadeIn2 0.3s ease-in'
       },
       keyframes: {
         marquee: {
@@ -97,6 +98,16 @@ export default {
           '100%':{
             transform: 'scale(0.9)',
             'box-shadow': '0 0 0 0 transparent'
+          }
+        },
+        fadeIn2: {
+          '0%': {
+            transform: 'translate(100%, 0)',
+            opacity: '0'
+          },
+          '100%':{
+            transform: 'translate(0, 0)',
+            opacity: '1'
           }
         }
       },
