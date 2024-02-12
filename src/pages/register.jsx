@@ -117,7 +117,7 @@ const Register = () => {
           <p className="text-center text-sm py-2 mt-2">
             Nếu bạn đã có tài khoản?{" "}
             <Link
-              to={routers.register}
+              to={routers.login}
               className="underline hover:text-baseColor"
             >
               đăng nhập tại đây!

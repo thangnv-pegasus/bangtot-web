@@ -6,6 +6,7 @@ import instance from "../axios/config";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { ACTIVE_TOAST_ERROR, ACTIVE_TOAST_SUCCESS, CLOSE_TOAST } from "../redux/slices/toast-slice";
+import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
 
 
 const Login = () => {
@@ -14,7 +15,8 @@ const Login = () => {
   const message = useSelector((state) => state.toast);
   const dispath = useDispatch();
   const naigate = useNavigate()
-
+  const auth = useSelector((state) => state.auth)
+  console.log(auth)  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await instance.post("/login", {
@@ -30,8 +32,15 @@ const Login = () => {
     }else if(res.data.code == 200){
         naigate('/')
         dispath(ACTIVE_TOAST_SUCCESS(res.data.message))
+        dispath(SET_ACTIVE_USER({
+          user: res.data.data.user,
+          isLogin: true,
+          token: res.data.data.token
+        }))
+        localStorage.setItem('token', res.data.data.token)
+        localStorage.setItem('user', JSON.stringify(res.data))
     }
-    setTimeout(()=>{
+    setTimeout(()=>{ 
         dispath(CLOSE_TOAST())
     },3000)
   };
