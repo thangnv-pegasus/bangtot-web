@@ -37,13 +37,18 @@ const Register = () => {
       dispath(ACTIVE_TOAST_ERROR(res.data.message));
     } else if (res.data.code == 200) {
       dispath(ACTIVE_TOAST_SUCCESS(res.data.message));
-    }else if(res.data.code == 301){
-        dispath(ACTIVE_TOAST_WARNING(res.data.message))
+    } else if (res.data.code == 301) {
+      dispath(ACTIVE_TOAST_WARNING(res.data.message));
     }
-    setTimeout(() => {
+    const closeToast = setTimeout(() => {
       dispath(CLOSE_TOAST());
     }, 3000);
+    closeToast();
+
+    clearTimeout(closeToast)
   };
+  
+  
 
   return (
     <Layout>
@@ -116,10 +121,7 @@ const Register = () => {
           </form>
           <p className="text-center text-sm py-2 mt-2">
             Nếu bạn đã có tài khoản?{" "}
-            <Link
-              to={routers.login}
-              className="underline hover:text-baseColor"
-            >
+            <Link to={routers.login} className="underline hover:text-baseColor">
               đăng nhập tại đây!
             </Link>
           </p>

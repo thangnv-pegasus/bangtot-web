@@ -13,13 +13,48 @@ import { OPEN_SEARCH } from "../../redux/slices/search-modal-slice";
 import axios from "axios";
 import instance from "../../axios/config";
 import { useEffect, useState } from "react";
+import {
+  SET_ACTIVE_USER,
+  SET_REMOVE_USER,
+} from "../../redux/slices/auth-slice";
+import {
+  ACTIVE_TOAST_SUCCESS,
+  ACTIVE_TOAST_WARNING,
+} from "../../redux/slices/toast-slice";
 
-const Header = () => {
-  const [collection, setCollection] = useState([]);
-  const [collectionItems, setCollectionItems] = useState([])
-  const searchModal = useSelector((state) => state.searchModal);
-  const cartUser = useSelector((state) => state.cart);
+const Header = ({
+  collection = [],
+  collectionItems = [],
+  searchModal = false,
+  cartUser = [],
+}) => {
   const dispath = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await instance.post("/logout", {
+        method: "post",
+        data: {
+          token: localStorage.getItem('token')
+        },
+        headers: {
+          "Authorization": localStorage.getItem("token"),
+        },
+      });
+      console.log(response)
+      dispath(SET_REMOVE_USER());
+
+      dispath(ACTIVE_TOAST_SUCCESS("Đăng xuất thành công!"));
+
+      localStorage.clear();
+
+    } catch (e) {
+      dispath(ACTIVE_TOAST_WARNING("Đăng xuất không thành công!"));
+    }
+  };
+
   const checkActive = (isActive) => {
     if (isActive || isActive === true) {
       return "text-baseColor";
@@ -27,21 +62,6 @@ const Header = () => {
       return "text-black";
     }
   };
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await instance.get("home", {
-          method: "get",
-        });
-        const { collections, collectionItems } = res.data.data;
-        setCollection(collections);
-        setCollectionItems(collectionItems)
-      } catch (error) {}
-    }
-
-    fetchData();
-  }, []);
-
 
   return (
     <div className="bg-white shadow-slate_bottom fixed left-0 top-0 right-0 z-40 scroll-smooth">
@@ -54,7 +74,7 @@ const Header = () => {
         </NavLink>
         <div className="flex-1 flex items-center justify-center font-medium text-base py-4">
           <NavLink
-            to=""
+            to={routers.home}
             // className=""
             className={({ isActive }) =>
               checkActive(isActive) +
@@ -87,7 +107,10 @@ const Header = () => {
                 <FontAwesomeIcon icon={faSortDown} />
               </p>
             </NavLink>
-            <MegaMenu collections={collection} collectionItems={collectionItems} />
+            <MegaMenu
+              collections={collection}
+              collectionItems={collectionItems}
+            />
           </div>
           <NavLink
             to={routers.blogs}
@@ -119,18 +142,38 @@ const Header = () => {
           <li className="ml-2 cursor-pointer p-2 hover:text-baseColor group relative">
             <FontAwesomeIcon icon={faUser} />
             <div className="shadow-mega_menu hidden group-hover:block absolute top-full left-1/2 -translate-x-1/2 bg-white min-w-40 group-hover:text-black rounded-md overflow-hidden">
-              <Link
-                to={routers.login}
-                className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
-              >
-                Đăng nhập
-              </Link>
-              <Link
-                to={routers.register}
-                className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
-              >
-                Đăng ký
-              </Link>
+              {auth.isLogin === false ? (
+                <>
+                  <Link
+                    to={routers.login}
+                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                  >
+                    Đăng nhập
+                  </Link>
+                  <Link
+                    to={routers.register}
+                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                  >
+                    Đăng ký
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={routers.profile}
+                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                  >
+                    {auth.user.name}
+                  </Link>
+                  <Link
+                    // to={routers.logout}
+                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                    onClick={(e) => handleLogout(e)}
+                  >
+                    Đăng xuất
+                  </Link>
+                </>
+              )}
             </div>
           </li>
           {/* <li className="ml-2 cursor-pointer p-2 hover:text-baseColor">

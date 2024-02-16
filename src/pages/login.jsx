@@ -5,18 +5,23 @@ import { useEffect, useRef, useState } from "react";
 import instance from "../axios/config";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { ACTIVE_TOAST_ERROR, ACTIVE_TOAST_SUCCESS, CLOSE_TOAST } from "../redux/slices/toast-slice";
+import {
+  ACTIVE_TOAST_ERROR,
+  ACTIVE_TOAST_SUCCESS,
+  CLOSE_TOAST,
+} from "../redux/slices/toast-slice";
 import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
-
 
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const message = useSelector((state) => state.toast);
   const dispath = useDispatch();
-  const naigate = useNavigate()
-  const auth = useSelector((state) => state.auth)
-  console.log(auth)  
+  const naigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await instance.post("/login", {
@@ -26,24 +31,29 @@ const Login = () => {
         password: passwordRef.current.value,
       },
     });
-    console.log(res.data)
-    if(res.data.code == 400){
-        dispath(ACTIVE_TOAST_ERROR(res.data.message))
-    }else if(res.data.code == 200){
-        naigate('/')
-        dispath(ACTIVE_TOAST_SUCCESS(res.data.message))
-        dispath(SET_ACTIVE_USER({
-          user: res.data.data.user,
+    // console.log(res.data)
+    if (res.data.code == 400) {
+      dispath(ACTIVE_TOAST_ERROR(res.data.message));
+    } else if (res.data.code == 200) {
+      naigate("/");
+      dispath(ACTIVE_TOAST_SUCCESS(res.data.message));
+      dispath(
+        SET_ACTIVE_USER({
+          user: res.data.user,
           isLogin: true,
-          token: res.data.data.token
-        }))
-        localStorage.setItem('token', res.data.data.token)
-        localStorage.setItem('user', JSON.stringify(res.data))
+          token: res.data.token_type + ' ' + res.data.token,
+        })
+      );
+      console.log(res.data);
+      localStorage.setItem("token", res.data.token_type + ' ' + res.data.token);
+      const closeToast = setTimeout(() => {
+        dispath(CLOSE_TOAST());
+      }, 3000);
+      clearTimeout(closeToast)
     }
-    setTimeout(()=>{ 
-        dispath(CLOSE_TOAST())
-    },3000)
   };
+
+
   return (
     <Layout>
       <div className="max-w-container mx-auto">
@@ -94,8 +104,6 @@ const Login = () => {
           </p>
         </div>
       </div>
-
-      
     </Layout>
   );
 };
