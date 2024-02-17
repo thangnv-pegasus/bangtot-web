@@ -10,6 +10,7 @@ import Collections from "../components/collections";
 import Collection from "../components/collections/feature-collection";
 import Blogs from "../components/blogs";
 import instance from "../axios/config";
+import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
 const Home = () => {
   const [collection, setCollection] = useState([]);
   const [url, setUrl] = useState(
@@ -31,17 +32,16 @@ const Home = () => {
         },
       });
       const { collections, collectionItems, user } = res.data;
-      // console.log(user) 
       setCollection(collections);
       setCollectionItems(collectionItems);
       dispath(
         SET_ACTIVE_USER({
-          isLogin: user ? true : false,
+          isLogin: localStorage.getItem("token") != null ? true : false,
           user: user,
+          isAdmin: user.role === 'admin' ? true : false,
           token: localStorage.getItem("token"),
         })
       );
-      // console.log("response ", res.data);
       if (!res) {
         setUrl("/home");
       }
@@ -51,8 +51,6 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // console.log("auth", auth);
 
   return (
     <>

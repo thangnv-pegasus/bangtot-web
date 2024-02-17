@@ -1,5 +1,10 @@
 import routers from "../config/router";
 import About from "../pages/about";
+import Dashboard from "../pages/admin/dashboard";
+import ManageOrder from "../pages/admin/manage-order";
+import ManageProduct from "../pages/admin/manage-product";
+import ManageRevenue from "../pages/admin/manage-revenue";
+import ManageUser from "../pages/admin/manage-user";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Profile from "../pages/profile";
@@ -31,4 +36,27 @@ const priveRouter = [
   },
 ];
 
-export { publicRouter, priveRouter };
+const adminRouter = [
+  {
+    path: routers.manageStore,
+    component: Dashboard
+  },
+  {
+    path: routers.manageOrder,
+    component: ManageOrder
+  },
+  {
+    path: routers.manageUser,
+    component: ManageUser
+  },
+  {
+    path: routers.manageProduct,
+    component: ManageProduct
+  },
+  {
+    path: routers.manageRevenue,
+    component: ManageRevenue
+  }
+]
+
+export { publicRouter, priveRouter, adminRouter };

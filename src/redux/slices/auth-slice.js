@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const init = {
-  user: null,
   isLogin: false,
+  isAdmin: false
   // token: "",
 };
 

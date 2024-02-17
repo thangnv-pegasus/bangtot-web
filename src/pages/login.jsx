@@ -41,6 +41,7 @@ const Login = () => {
         SET_ACTIVE_USER({
           user: res.data.user,
           isLogin: true,
+          isAdmin: res.data.user.role === 'admin' ? true : false,
           token: res.data.token_type + ' ' + res.data.token,
         })
       );

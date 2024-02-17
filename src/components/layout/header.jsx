@@ -37,19 +37,17 @@ const Header = ({
       const response = await instance.post("/logout", {
         method: "post",
         data: {
-          token: localStorage.getItem('token')
+          token: localStorage.getItem("token"),
         },
         headers: {
-          "Authorization": localStorage.getItem("token"),
+          Authorization: localStorage.getItem("token"),
         },
       });
-      console.log(response)
       dispath(SET_REMOVE_USER());
 
       dispath(ACTIVE_TOAST_SUCCESS("Đăng xuất thành công!"));
 
       localStorage.clear();
-
     } catch (e) {
       dispath(ACTIVE_TOAST_WARNING("Đăng xuất không thành công!"));
     }
@@ -165,6 +163,14 @@ const Header = ({
                   >
                     {auth.user.name}
                   </Link>
+                  {auth.user.role === "admin" && (
+                    <Link
+                      to={routers.manageStore}
+                      className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                    >
+                      Quản lý cửa hàng
+                    </Link>
+                  )}
                   <Link
                     // to={routers.logout}
                     className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
