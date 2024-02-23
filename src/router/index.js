@@ -1,5 +1,6 @@
 import routers from "../config/router";
 import About from "../pages/about";
+import AddProduct from "../pages/admin/add-product";
 import Dashboard from "../pages/admin/dashboard";
 import ManageOrder from "../pages/admin/manage-order";
 import ManageProduct from "../pages/admin/manage-product";
@@ -56,6 +57,10 @@ const adminRouter = [
   {
     path: routers.manageRevenue,
     component: ManageRevenue
+  },
+  {
+    path: routers.addProduct,
+    component: AddProduct
   }
 ]
 

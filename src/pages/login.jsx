@@ -20,8 +20,6 @@ const Login = () => {
   const naigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await instance.post("/login", {
@@ -41,19 +39,19 @@ const Login = () => {
         SET_ACTIVE_USER({
           user: res.data.user,
           isLogin: true,
-          isAdmin: res.data.user.role === 'admin' ? true : false,
-          token: res.data.token_type + ' ' + res.data.token,
+          isAdmin: res.data.user.role === "admin" ? true : false,
+          token: res.data.token_type + " " + res.data.token,
         })
       );
-      console.log(res.data);
-      localStorage.setItem("token", res.data.token_type + ' ' + res.data.token);
+      // console.log(res.data);
+      localStorage.setItem("token", res.data.token_type + " " + res.data.token);
+      localStorage.setItem("admin", "true");
       const closeToast = setTimeout(() => {
         dispath(CLOSE_TOAST());
       }, 3000);
-      clearTimeout(closeToast)
+      clearTimeout(closeToast);
     }
   };
-
 
   return (
     <Layout>
