@@ -1,6 +1,6 @@
 const LoadingDots = () => {
   return (
-    <div>
+    <div className="py-10">
       {/* <span className="loading loading-dots loading-xs"></span>
       <span className="loading loading-dots loading-sm"></span>
       <span className="loading loading-dots loading-md"></span> */}
