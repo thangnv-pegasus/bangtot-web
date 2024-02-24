@@ -35,7 +35,7 @@ const AddProduct = () => {
     setLoading(false);
   };
 
-  const upload = async (e) => {
+  const uploadProduct = async (e) => {
     e.preventDefault();
     const name = nameRef.current.value;
     const price = priceRef.current.value;
@@ -49,18 +49,18 @@ const AddProduct = () => {
     });
     const idLastest = response2.data.id;
 
-    try{
-        let arr = []
-        for(let i =0;i<images.length;i++){
-            const data = await uploadImage(images[i],`product/product_${idLastest+1}`)
-            arr.push(data)
-        }
-        setLinks(arr)
-    }catch(error){
-        console.log(error)
+    try {
+      let arr = [];
+      for (let i = 0; i < images.length; i++) {
+        const data = await uploadImage(images[i], ``);
+        arr.push(data);
+      }
+      setLinks(arr);
+    } catch (error) {
+      console.log(error);
     }
 
-console.log(images[0])
+    // console.log(images[0])
   };
 
   useEffect(() => {
@@ -80,7 +80,12 @@ console.log(images[0])
       >
         Trở lại
       </Link>
-      <form action="" method="post" onSubmit={(e) => upload(e)}>
+      <form
+        action=""
+        method="post"
+        onSubmit={(e) => uploadProduct(e)}
+        encType="multipart/form-data"
+      >
         <div className="my-2">
           <label
             for="helper-text"
@@ -368,17 +373,17 @@ console.log(images[0])
           Lưu sản phẩm
         </button>
       </form>
-      {
-        links && links.length > 0 && links.map((link, item) => {
-            return (
-                <div>
-                    <p>publicId: link?.publicId</p>
-                    <p>url: link?.url</p>
-                    <img src={link?.url} width={100} alt="" />
-                </div>
-            )
-        })
-      }
+      {links &&
+        links.length > 0 &&
+        links.map((link, item) => {
+          return (
+            <div>
+              <p>publicId: {link?.publicId}</p>
+              <p>url: {link?.url}</p>
+              <img src={link?.url} width={100} alt="" />
+            </div>
+          );
+        })}
     </LayoutAdmin>
   );
 };
