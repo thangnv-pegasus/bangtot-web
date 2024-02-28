@@ -21,26 +21,25 @@ import {
   ACTIVE_TOAST_SUCCESS,
   ACTIVE_TOAST_WARNING,
 } from "../../redux/slices/toast-slice";
+import splitBearer from "../../axios/split-brearer";
+import { getHeader } from "../../content/header";
 
-const Header = ({
-  collection = [],
-  collectionItems = [],
-  searchModal = false,
-  cartUser = [],
-}) => {
+const Header = ({ searchModal = false, cartUser = [] }) => {
   const dispath = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const [collection, setCollection] = useState([]);
+  const [collectionItems, setCollectionItems] = useState([]);
 
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await instance.post("/logout", {
+      console.log(localStorage.getItem("token"));
+      const response = await instance.post("logout", {
         method: "post",
-        data: {
-          token: localStorage.getItem("token"),
-        },
         headers: {
           Authorization: localStorage.getItem("token"),
+          "X-Requested-With": "*",
+          "Access-Control-Allow-Origin": "*/*",
         },
       });
       dispath(SET_REMOVE_USER());
@@ -49,6 +48,7 @@ const Header = ({
 
       localStorage.clear();
     } catch (e) {
+      console.log(e);
       dispath(ACTIVE_TOAST_WARNING("Đăng xuất không thành công!"));
     }
   };
@@ -60,6 +60,22 @@ const Header = ({
       return "text-black";
     }
   };
+
+  const getContentHeader = async () => {
+    const { data } = await instance.get("/home", {
+      method: "get",
+      headers: {
+        "Content-Type": "*",
+      },
+    });
+    setCollection(data.collections);
+    setCollectionItems(data.collectionItems);
+  };
+
+
+  useEffect(() => {
+    getContentHeader();
+  }, []);
 
   return (
     <div className="bg-white shadow-slate_bottom fixed left-0 top-0 right-0 z-40 scroll-smooth">

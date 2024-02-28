@@ -6,6 +6,7 @@ import ManageOrder from "../pages/admin/manage-order";
 import ManageProduct from "../pages/admin/manage-product";
 import ManageRevenue from "../pages/admin/manage-revenue";
 import ManageUser from "../pages/admin/manage-user";
+import Contact from "../pages/contact";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Profile from "../pages/profile";
@@ -19,6 +20,10 @@ const publicRouter = [
   {
     path: routers.about,
     component: About,
+  },
+  {
+    path: routers.contact,
+    component: Contact
   },
   {
     path: routers.login,

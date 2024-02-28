@@ -1,10 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
+import instance from "../../axios/config";
 
-const init = {
+let init = {
   isLogin: false,
   isAdmin: false
   // token: "",
 };
+
+if(localStorage.getItem('token')){
+  const getUser = async () => {
+    const {data} = await instance.get('user',{
+      method: 'get'
+    })
+
+    console.log(data)
+  }
+  
+  getUser()
+}
 
 const authSlice = createSlice({
   name: "auth",

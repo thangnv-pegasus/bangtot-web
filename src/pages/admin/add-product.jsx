@@ -9,6 +9,8 @@ import LoadingDots from "../../components/loading/dot";
 import uploadImage from "../../upload";
 import LoadingSpinner from "../../components/loading/spinner";
 import SizeItem from "../../components/size/item";
+import { data } from "autoprefixer";
+import axios from "axios";
 const AddProduct = () => {
   // input ref
   const descriptionRef = useRef();
@@ -22,7 +24,6 @@ const AddProduct = () => {
   // state
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [links, setLinks] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [listChecked, setListChecked] = useState([]);
 
@@ -38,6 +39,8 @@ const AddProduct = () => {
     setCollections(data.collections);
     setSizes(data.sizes);
     setLoading(false);
+
+    console.log(sizes)
   };
 
   const uploadProduct = async (e) => {
@@ -50,29 +53,42 @@ const AddProduct = () => {
     const detail = detailRef.current.value;
     const collectionId = collectionRef.current.value;
     const images = imageRef.current.files;
-    const response2 = await instance.get("/last-product", {
-      method: "get",
-    });
-    const idLastest = response2.data.id;
-
     try {
       let arr = [];
       for (let i = 0; i < images.length; i++) {
         const data = await uploadImage(images[i]);
         arr.push(data);
       }
-      setLinks(arr);
+      console.log(arr)
+      const prodReqest = {
+        name,
+        price,
+        price_sale,
+        description,
+        detail,
+        collectionId,
+        sizes: listChecked,
+        image: arr,
+      };
+      const { data } = await instance.post("admin/create-product", prodReqest, {
+        method: "post",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      console.log(data);
+
       setLoading(false);
+      setListChecked([])
     } catch (error) {
       console.log(error);
     }
-
-    // console.log(images[0])
   };
 
   const handleChange = (e) => {
     const { value, checked, id } = e.target;
-
     // Case 1 : The user checks the box
     if (checked) {
       setListChecked([
@@ -89,7 +105,7 @@ const AddProduct = () => {
       setListChecked(listChecked.filter((e) => e.id !== id));
     }
   };
-  console.log(listChecked);
+  // console.log(listChecked);
   useEffect(() => {
     fetchData();
   }, []);
@@ -416,17 +432,6 @@ const AddProduct = () => {
               Lưu sản phẩm
             </button>
           </form>
-          {links &&
-            links.length > 0 &&
-            links.map((link, item) => {
-              return (
-                <div className="">
-                  <p>publicId: {link?.publicId}</p>
-                  <p>url: {link?.url}</p>
-                  <img src={link?.url} width={100} alt="" />
-                </div>
-              );
-            })}
         </div>
       ) : (
         <LoadingSpinner />

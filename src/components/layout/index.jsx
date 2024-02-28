@@ -16,8 +16,6 @@ const Layout = ({ children, collection = [], collectionItems = [] }) => {
   return (
     <>
       <Header
-        collection={collection}
-        collectionItems={collectionItems}
         cartUser={cart}
         searchModal={searchModal}
       />

@@ -5,6 +5,7 @@ import { FaChartBar } from "react-icons/fa";
 import { BsBoxSeam } from "react-icons/bs";
 import routers from "../../config/router";
 import { FaTruckFast } from "react-icons/fa6";
+import { AiOutlineHome } from "react-icons/ai";
 const NavBar = () => {
   const checkActive = (isActive) => {
     if (isActive || isActive === true) {
@@ -76,6 +77,12 @@ const NavBar = () => {
         </p>
         <p className="text-sm my-1">Đơn hàng</p>
       </NavLink>
+      <Link to={routers.home} className="flex flex-col items-center text-center py-2 my-4">
+        <p className="text-2xl font-bold">
+        <AiOutlineHome />
+        </p>
+        <p className="text-sm my-1">Về trang chủ</p>
+      </Link>
     </div>
   );
 };

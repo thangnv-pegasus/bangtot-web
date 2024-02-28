@@ -11,6 +11,9 @@ import Collection from "../components/collections/feature-collection";
 import Blogs from "../components/blogs";
 import instance from "../axios/config";
 import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
+
+
+
 const Home = () => {
   const [collection, setCollection] = useState([]);
   const [url, setUrl] = useState(
@@ -29,6 +32,7 @@ const Home = () => {
           "Authorization": token,
           "Content-Type": "application/x-www-form-urlencoded",
           "Accept": "application/json",
+          'Access-Control-Allow-Origin': '*'
         },
       });
       const { collections, collectionItems, user } = res.data;

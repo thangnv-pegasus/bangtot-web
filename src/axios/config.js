@@ -12,4 +12,6 @@ instance.defaults.headers.post["Content-Type"] =
 instance.defaults.headers.post["Accept"] = "application/json";
 instance.defaults.headers.get["Accept"] = "application/json";
 instance.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+instance.defaults.headers.post['Authorization'] = localStorage.getItem('token')
+instance.defaults.headers.common['X-CSRF-TOKEN'] = window.csrf_token;
 export default instance;

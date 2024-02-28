@@ -17,7 +17,6 @@ function App() {
         method: "get",
         headers: {
           Authorization: token,
-          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
       const { user } = res.data;
@@ -59,8 +58,7 @@ function App() {
             <Route path={item.path} element={<item.component />} key={index} />
           );
         })}
-
-      <Route path="*" element={<Home />} key="demo" />
+      <Route path="*" element={<div className="w-full h-screen flex items-center justify-center">Page not found</div>} />
     </Routes>
   );
 }
