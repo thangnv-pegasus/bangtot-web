@@ -8,6 +8,7 @@ const ProductInfor = ({
   price = 1,
   price_sale = null,
   imageUrl = "",
+  idProduct = 1
 }) => {
   const formatNumber = (num = 10) => {
     return num.toLocaleString() || num;

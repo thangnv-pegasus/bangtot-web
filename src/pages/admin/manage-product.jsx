@@ -7,15 +7,30 @@ import { Link } from "react-router-dom";
 import routers from "../../config/router";
 
 const ManageProduct = () => {
-    const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [images, setImages] = useState([]);
   const fetchData = async () => {
-    const response = await instance.get(`/products?page=${page}`, {
+    const { data } = await instance.get(`/products?page=${page}`, {
       method: "get",
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     });
-    // console.log(response.data);
+    setProducts(data.products.data);
+    setImages(data.images)
+  };
+
+  const urlImage = (productId) => {
+    let url = "";
+    for (const image of images) {
+      if (image.idProduct == productId) {
+        url = image.name;
+        break;
+      }
+    }
+
+    return url;
   };
 
   useEffect(() => {
@@ -27,14 +42,25 @@ const ManageProduct = () => {
       <div className="border-[1px] border-solid border-slate-300 p-5 rounded-md">
         <div className="flex justify-between items-center pb-4 border-b-2 border-solid border-slate-300 mb-5">
           <TitlePage title="Danh sách sản phẩm đang bán" />
-          <Link to={routers.addProduct} className="bg-baseColor text-white px-2 py-1 rounded-sm">Thêm sản phẩm mới</Link>
+          <Link
+            to={routers.addProduct}
+            className="bg-baseColor text-white px-2 py-1 rounded-sm"
+          >
+            Thêm sản phẩm mới
+          </Link>
         </div>
-        <ProductInfor
-          imageUrl="https://via.placeholder.com/100x100"
-          name="product name"
-          price={100}
-          price_sale={50}
-        />
+        {products.length > 0 && products.map((item, index) => {
+          return (
+            <ProductInfor
+              imageUrl={urlImage(item.id)}
+              key={index}
+              name={item.name}
+              price={item.price}
+              price_sale={item.price_sale}
+              idProduct = {item.id}
+            />
+          );
+        })}
       </div>
     </LayoutAdmin>
   );

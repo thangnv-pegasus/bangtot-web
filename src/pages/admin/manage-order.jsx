@@ -1,11 +1,12 @@
+import LayoutAdmin from "../../components/layout/admin"
 
 
 
 const ManageOrder = () => {
     return (
-        <div>
+        <LayoutAdmin>
             this is ManageOrder page
-        </div>
+        </LayoutAdmin>
     )
 }
 

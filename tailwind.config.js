@@ -111,6 +111,9 @@ export default {
           }
         }
       },
+      gridTemplateColumns: {
+        'row_user_table': '1fr 2fr 2fr 2fr 2fr 1fr 2fr'
+      }
     },
   },
   plugins: [require("daisyui")],

@@ -66,7 +66,7 @@ const NavBar = () => {
         <p className="text-sm my-1">Thống kê</p>
       </NavLink>
       <NavLink
-        to={routers.manageRevenue}
+        to={routers.manageOrder}
         className={({ isActive }) =>
           checkActive(isActive) +
           " flex flex-col items-center text-center py-2 my-4"

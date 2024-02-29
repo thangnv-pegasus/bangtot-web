@@ -9,8 +9,8 @@ import LoadingDots from "../../components/loading/dot";
 import uploadImage from "../../upload";
 import LoadingSpinner from "../../components/loading/spinner";
 import SizeItem from "../../components/size/item";
-import { data } from "autoprefixer";
-import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AddProduct = () => {
   // input ref
   const descriptionRef = useRef();
@@ -26,6 +26,13 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [sizes, setSizes] = useState([]);
   const [listChecked, setListChecked] = useState([]);
+  const [resultReq, setResultReq] = useState();
+
+  // toast
+  const toastSuccess = () =>
+    toast("Thêm sản phẩm thành công!", { autoClose: 3000 });
+  const toastFailed = () =>
+    toast("Thêm sản phẩm không thành công!", { autoClose: 3000 });
 
   const fetchData = async () => {
     setLoading(true);
@@ -35,12 +42,9 @@ const AddProduct = () => {
         Authorization: localStorage.getItem("token"),
       },
     });
-
     setCollections(data.collections);
     setSizes(data.sizes);
     setLoading(false);
-
-    console.log(sizes)
   };
 
   const uploadProduct = async (e) => {
@@ -53,13 +57,13 @@ const AddProduct = () => {
     const detail = detailRef.current.value;
     const collectionId = collectionRef.current.value;
     const images = imageRef.current.files;
+
     try {
       let arr = [];
       for (let i = 0; i < images.length; i++) {
         const data = await uploadImage(images[i]);
         arr.push(data);
       }
-      console.log(arr)
       const prodReqest = {
         name,
         price,
@@ -70,6 +74,7 @@ const AddProduct = () => {
         sizes: listChecked,
         image: arr,
       };
+      console.log(prodReqest)
       const { data } = await instance.post("admin/create-product", prodReqest, {
         method: "post",
         headers: {
@@ -78,12 +83,17 @@ const AddProduct = () => {
           Accept: "application/json",
         },
       });
-      console.log(data);
 
-      setLoading(false);
-      setListChecked([])
+      setResultReq(true);
+      setListChecked([]);
+      toastSuccess();
+      console.log(data)
     } catch (error) {
       console.log(error);
+      setResultReq(false);
+      toastFailed();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -105,9 +115,10 @@ const AddProduct = () => {
       setListChecked(listChecked.filter((e) => e.id !== id));
     }
   };
-  // console.log(listChecked);
+
   useEffect(() => {
     fetchData();
+    setResultReq(null);
   }, []);
 
   return (
@@ -156,12 +167,12 @@ const AddProduct = () => {
                       [{ header: "1" }, { header: "2" }, { font: [] }],
                       [{ size: [] }],
                       ["bold", "italic", "underline", "strike", "blockquote"],
-                      //   [
-                      //     { align: "" },
-                      //     { align: "center" },
-                      //     { align: "right" },
-                      //     { align: "justify" },
-                      //   ],
+                      [
+                        { align: "" },
+                        { align: "center" },
+                        { align: "right" },
+                        { align: "justify" },
+                      ],
                       [
                         { list: "ordered" },
                         { list: "bullet" },
@@ -229,11 +240,11 @@ const AddProduct = () => {
                   "strike",
                   "blockquote",
                   "list",
+                  "color",
                   "bullet",
                   "indent",
                   "link",
-                  "image",
-                  "video",
+                  "align",
                   "code-block",
                 ]}
               />
@@ -252,12 +263,12 @@ const AddProduct = () => {
                       [{ header: "1" }, { header: "2" }, { font: [] }],
                       [{ size: [] }],
                       ["bold", "italic", "underline", "strike", "blockquote"],
-                      //   [
-                      //     { align: "" },
-                      //     { align: "center" },
-                      //     { align: "right" },
-                      //     { align: "justify" },
-                      //   ],
+                      [
+                        { align: "" },
+                        { align: "center" },
+                        { align: "right" },
+                        { align: "justify" },
+                      ],
                       [
                         { list: "ordered" },
                         { list: "bullet" },
@@ -323,13 +334,13 @@ const AddProduct = () => {
                   "italic",
                   "underline",
                   "strike",
+                  "color",
                   "blockquote",
                   "list",
                   "bullet",
                   "indent",
                   "link",
-                  "image",
-                  "video",
+                  "align",
                   "code-block",
                 ]}
               />
@@ -436,6 +447,7 @@ const AddProduct = () => {
       ) : (
         <LoadingSpinner />
       )}
+      {resultReq !== null && <ToastContainer />}
     </LayoutAdmin>
   );
 };
