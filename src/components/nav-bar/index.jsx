@@ -5,6 +5,7 @@ import { FaChartBar } from "react-icons/fa";
 import { BsBoxSeam } from "react-icons/bs";
 import routers from "../../config/router";
 import { FaTruckFast } from "react-icons/fa6";
+import { ImNewspaper } from "react-icons/im";
 import { AiOutlineHome } from "react-icons/ai";
 const NavBar = () => {
   const checkActive = (isActive) => {
@@ -76,6 +77,18 @@ const NavBar = () => {
           <FaTruckFast />
         </p>
         <p className="text-sm my-1">Đơn hàng</p>
+      </NavLink>
+      <NavLink
+        to={routers.manageBlogs}
+        className={({ isActive }) =>
+          checkActive(isActive) +
+          " flex flex-col items-center text-center py-2 my-4"
+        }
+      >
+        <p className="text-2xl">
+          <ImNewspaper />
+        </p>
+        <p className="text-sm my-1">Bài đăng</p>
       </NavLink>
       <Link to={routers.home} className="flex flex-col items-center text-center py-2 my-4">
         <p className="text-2xl font-bold">

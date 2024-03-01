@@ -29,7 +29,6 @@ const ManageProduct = () => {
         break;
       }
     }
-
     return url;
   };
 

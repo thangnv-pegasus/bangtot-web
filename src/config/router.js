@@ -15,7 +15,8 @@ const routers = {
     manageUser: '/quan-ly-user',
     manageProduct: '/quan-ly-san-pham',
     manageOrder: '/quan-ly-don-hang',
-    manageRevenue: '/quan-ly-doanh-thu'
+    manageRevenue: '/quan-ly-doanh-thu',
+    manageBlogs: '/quan-ly-bai-dang'
 }
 
 export default routers

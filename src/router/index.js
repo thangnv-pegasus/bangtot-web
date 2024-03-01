@@ -2,6 +2,7 @@ import routers from "../config/router";
 import About from "../pages/about";
 import AddProduct from "../pages/admin/add-product";
 import Dashboard from "../pages/admin/dashboard";
+import ManageBlogs from "../pages/admin/manage-blogs";
 import ManageOrder from "../pages/admin/manage-order";
 import ManageProduct from "../pages/admin/manage-product";
 import ManageRevenue from "../pages/admin/manage-revenue";
@@ -66,6 +67,10 @@ const adminRouter = [
   {
     path: routers.addProduct,
     component: AddProduct
+  },
+  {
+    path: routers.manageBlogs,
+    component: ManageBlogs
   }
 ]
 
