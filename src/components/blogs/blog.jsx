@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { IoCalendarOutline } from "react-icons/io5";
-const Blog = ({ blog = {}, classes }) => {
+const Blog = ({ blog = {}, author = "", classes }) => {
   return (
     <div className="">
       <Link
         to=""
-        className="w-full h-auto overflow-hidden block group rounded-sm overflow-hidden"
+        className="w-full h-auto overflow-hidden block group rounded-sm"
       >
         <img
           src="https://via.placeholder.com/200x120"
@@ -19,24 +19,24 @@ const Blog = ({ blog = {}, classes }) => {
             to=""
             className="line-clamp-2 text-center pb-2 font-medium transition-all ease-linear hover:text-baseColor"
           >
-            Blog name: demo blog
+            Blog name: {blog.name}
           </Link>
           <div className="flex items-center justify-center text-sm relative">
             <div className="flex items-center px-1">
               <span className="mr-1">
                 <IoCalendarOutline />
               </span>
-              <p className="font-medium text-[#91ad41]">20/10/2023</p>
+              <p className="font-medium text-[#91ad41]">{blog.create_at}</p>
             </div>
             <div className="flex items-center px-1">
               <span className="mr-1">Đăng bởi:</span>
-              <p className="font-medium text-[#91ad41]">Thắng Nguyễn</p>
+              <p className="font-medium text-[#91ad41]">{author}</p>
             </div>
           </div>
           <p className="text-sm line-clamp-2 pt-2 select-none">
-            Sự tiện dụng, thoải mái và thông minh luôn được đặt lên hàng đầu
-            trong xã hội ngày nay. Vì vậy, những món đồ nội thất mang lại sự
-            tiện nghi và không quá đắt đỏ luôn
+            {blog.content
+              ? blog.content
+              : "Sự tiện dụng, thoải mái và thông minh luôn được đặt lên hàng đầu trong xã hội ngày nay. Vì vậy, những món đồ nội thất mang lại sự tiện nghi và không quá đắt đỏ luôn"}
           </p>
         </div>
       </div>

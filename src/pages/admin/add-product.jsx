@@ -87,7 +87,6 @@ const AddProduct = () => {
       setResultReq(true);
       setListChecked([]);
       toastSuccess();
-      console.log(data)
     } catch (error) {
       console.log(error);
       setResultReq(false);

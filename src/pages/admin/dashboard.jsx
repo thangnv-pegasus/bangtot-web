@@ -37,8 +37,6 @@ const Dashboard = () => {
       },
     });
 
-    console.log(data);
-
     setProduct(data.products);
     setBlogs(data.blogs);
     setImages(data.images);

@@ -24,6 +24,9 @@ export default {
       backgroundColor: {
         baseColor: "#627c24",
         baseBg: "#7bab20",
+        hotline_bg1: '#22bad8',
+        hotline_bg2: '#333',
+        hotline_bg3: '#019610'
       },
       borderColor: {
         baseColor: "#627c24",
@@ -92,7 +95,7 @@ export default {
             transform: 'scale(0.9)',
           },
           '70%':{
-            transform: 'scale(1)',
+            transform: 'scale(1.1)',
             'box-shadow': '0 0 0 20px transparent'
           },
           '100%':{
@@ -112,7 +115,8 @@ export default {
         }
       },
       gridTemplateColumns: {
-        'row_user_table': '1fr 2fr 2fr 2fr 2fr 1fr 2fr'
+        'row_user_table': '1fr 2fr 2fr 2fr 2fr 1fr 2fr',
+        '4_6': '4fr 6fr'
       }
     },
   },

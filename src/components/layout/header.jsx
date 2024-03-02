@@ -33,7 +33,6 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      console.log(localStorage.getItem("token"));
       const response = await instance.post("logout", {
         method: "post",
         headers: {

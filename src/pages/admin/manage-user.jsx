@@ -25,7 +25,6 @@ const ManageUser = () => {
     getUsers();
   }, []);
 
-  console.log(users);
   return (
     <>
       <LayoutAdmin>

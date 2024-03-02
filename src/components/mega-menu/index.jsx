@@ -12,7 +12,6 @@ const MegaMenu = ({ collections = [], collectionItems = [] }) => {
     }
     return list
   }
-  // console.log(collectionItems)
 
   return (
     <div className="absolute hidden animate-fadeIn top-full left-1/2 -translate-x-1/2 w-container bg-white shadow-mega_menu p-5 rounded-lg group-hover:block group-hover:text-black">

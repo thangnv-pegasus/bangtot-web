@@ -32,7 +32,6 @@ const Register = () => {
         password: passwordRef.current.value,
       },
     });
-    console.log(res.data);
     if (res.data.code == 400) {
       dispath(ACTIVE_TOAST_ERROR(res.data.message));
     } else if (res.data.code == 200) {

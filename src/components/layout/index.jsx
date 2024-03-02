@@ -6,28 +6,45 @@ import Success from "../toast-message/success";
 import Warning from "../toast-message/warning";
 import Error from "../toast-message/error";
 import { useSelector } from "react-redux";
+import instance from "../../axios/config";
+import { useEffect, useState } from "react";
 
-
-const Layout = ({ children, collection = [], collectionItems = [] }) => {
-  const message = useSelector((state) => state.toast);
+const Layout = ({ children }) => {
   const searchStatus = useSelector((state) => state.searchModal.value);
+  const [phones, setPhones] = useState([]);
   const { searchModal, cart, auth } = useSelector((state) => state);
-  
+
+  const fetchData = async () => {
+    try {
+      const { data } = await instance.get("phone-contact", {
+        method: "get",
+      });
+      setPhones(data.phones);
+    } catch (e) {
+      setPhones([
+        {
+          phone_name: "xample",
+          phone_number: "012345678281",
+        },
+      ]);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-      <Header
-        cartUser={cart}
-        searchModal={searchModal}
-      />
+      <Header cartUser={cart} searchModal={searchModal} />
 
       <div className="py-24">{children}</div>
 
       <Footer />
       {searchStatus && <Search />}
-      {message.name === "success" && <Success message={message.message} />}
-      {message.name === "error" && <Error message={message.message} />}
-      {message.name === "warning" && <Warning message={message.message} />}
-      <HotLine />
+      <HotLine
+        phones={phones}
+      />
     </>
   );
 };

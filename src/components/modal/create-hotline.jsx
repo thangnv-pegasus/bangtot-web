@@ -1,9 +1,44 @@
 import { useRef } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import instance from "../../axios/config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FormHotline = ({ open = false, setOpen }) => {
   const refNamePhone = useRef();
   const refPhone = useRef();
+
+  const showToastSuccess = () => {
+    toast.success("Thêm số điện thoại thành công!");
+  };
+
+  const showToastError = () => {
+    toast.error("Thêm số điện thoại thất bại!");
+  };
+
+  const createPhone = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await instance.post(
+        "admin/add-phone-contact",
+        {
+          phoneName: refNamePhone.current.value,
+          phoneNumber: refPhone.current.value,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      showToastSuccess();
+      refNamePhone.current.value = "";
+      refPhone.current.value = "";
+    } catch (e) {
+      showToastError();
+      console.log(e);
+    }
+  };
 
   return (
     <div
@@ -19,6 +54,7 @@ const FormHotline = ({ open = false, setOpen }) => {
         onClick={(e) => {
           e.stopPropagation();
         }}
+        onSubmit={(e) => createPhone(e)}
       >
         <div
           className="absolute cursor-pointer top-0 right-0 p-2 text-lg transition-all ease-linear hover:bg-baseColor hover:text-white"
@@ -50,6 +86,7 @@ const FormHotline = ({ open = false, setOpen }) => {
             name="phone-number"
             id="phone-number"
             className="block w-full px-2 py-2 text-sm border-[1px] border-solid border-gray-400 rounded-md overflow-hidden outline-none"
+            ref={refPhone}
           />
         </div>
         <button
@@ -59,6 +96,7 @@ const FormHotline = ({ open = false, setOpen }) => {
           Lưu số điện thoại
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

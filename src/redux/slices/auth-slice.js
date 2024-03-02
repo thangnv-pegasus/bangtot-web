@@ -7,18 +7,6 @@ let init = {
   // token: "",
 };
 
-if(localStorage.getItem('token')){
-  const getUser = async () => {
-    const {data} = await instance.get('user',{
-      method: 'get'
-    })
-
-    console.log(data)
-  }
-  
-  getUser()
-}
-
 const authSlice = createSlice({
   name: "auth",
   initialState: init,

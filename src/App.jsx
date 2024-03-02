@@ -20,7 +20,6 @@ function App() {
         },
       });
       const { user } = res.data;
-      // console.log(user, token);
       dispath(
         SET_ACTIVE_USER({
           isLogin: user != null ? true : false,

@@ -18,7 +18,6 @@ export const counterSlice = createSlice({
       // action tra ve 1 object la {kieu dang ap dung, payload: gia tri duoc truyen vao}\
       // state truyen vao kia chinh la cai count hien tai: vi du count = 0 khi increment thi no se truyen state = count = 0 vao 
       state.value += 1
-      // console.log(action)
     },
     decrement: (state, action) => {
       state.value -= 1

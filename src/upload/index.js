@@ -17,7 +17,6 @@ const uploadImage = async (file, folderName = 'products') => {
     `https://api.cloudinary.com/v1_1/dk5g0mlni/image/upload/`,
     formData,
   );
-  // console.log({ data });
   return { publicId: data.public_id, url: data.secure_url };
 };
 

@@ -15,7 +15,7 @@ const Contact = () => {
   return (
     <Layout>
       <div className="mx-auto max-w-container">
-        <div className="grid grid-cols-2 gap-x-10 py-10">
+        <div className="grid grid-cols-4_6 gap-x-10 py-10">
           <div>
             <TitlePage
               title="Nơi giải đáp thắc mắc của bạn"
@@ -126,7 +126,7 @@ const Contact = () => {
           <div>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.880392196023!2d105.7807929747147!3d21.03747128748032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab355cc2239b%3A0x9ae247114fb38da3!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBTxrAgUGjhuqFtIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1709244114561!5m2!1svi!2s"
-              className="border-0 h-[500px] w-full"
+              className="border-0 h-[700px] w-full"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"

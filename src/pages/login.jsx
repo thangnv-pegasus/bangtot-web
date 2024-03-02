@@ -29,7 +29,6 @@ const Login = () => {
         password: passwordRef.current.value,
       },
     });
-    // console.log(res.data)
     if (res.data.code == 400) {
       dispath(ACTIVE_TOAST_ERROR(res.data.message));
     } else if (res.data.code == 200) {
@@ -43,7 +42,6 @@ const Login = () => {
           token: res.data.token_type + " " + res.data.token,
         })
       );
-      // console.log(res.data);
       localStorage.setItem("token", res.data.token_type + " " + res.data.token);
       localStorage.setItem("admin", "true");
       const closeToast = setTimeout(() => {
