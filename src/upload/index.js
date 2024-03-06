@@ -14,7 +14,7 @@ const uploadImage = async (file, folderName = 'products') => {
   formData.append("cloud_name", clouname);
   formData.append("timestamp", (Date.now() / 1000) | 0);
   const { data } = await axios.post(
-    `https://api.cloudinary.com/v1_1/dk5g0mlni/image/upload/`,
+    `https://api.cloudinary.com/v1_1/${clouname}/image/upload/`,
     formData,
   );
   return { publicId: data.public_id, url: data.secure_url };

@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
 import { IoCalendarOutline } from "react-icons/io5";
-const Blog = ({ blog = {}, author = "", classes }) => {
+import "react-quill/dist/quill.snow.css";
+import instance from "../../axios/config";
+import { useEffect, useState } from "react";
+const Blog = ({ blog = {}, classes }) => {
+  const [author, setAuthor] = useState('author')
+  const fetchAuthor = async () => {
+    const { data } = await instance.get(`author/${blog.idUser}`, {
+      method: "get",
+    });
+    setAuthor(data.author)
+  };
+
+  useEffect(() => {
+    if (blog.idUser) {
+      fetchAuthor();
+    }
+  }, []);
   return (
     <div className="">
       <Link
@@ -19,7 +35,7 @@ const Blog = ({ blog = {}, author = "", classes }) => {
             to=""
             className="line-clamp-2 text-center pb-2 font-medium transition-all ease-linear hover:text-baseColor"
           >
-            Blog name: {blog.name}
+            {blog.name || "blog name"}
           </Link>
           <div className="flex items-center justify-center text-sm relative">
             <div className="flex items-center px-1">
@@ -34,9 +50,11 @@ const Blog = ({ blog = {}, author = "", classes }) => {
             </div>
           </div>
           <p className="text-sm line-clamp-2 pt-2 select-none">
-            {blog.content
-              ? blog.content
-              : "Sự tiện dụng, thoải mái và thông minh luôn được đặt lên hàng đầu trong xã hội ngày nay. Vì vậy, những món đồ nội thất mang lại sự tiện nghi và không quá đắt đỏ luôn"}
+            {blog.content ? (
+              <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ) : (
+              "Sự tiện dụng, thoải mái và thông minh luôn được đặt lên hàng đầu trong xã hội ngày nay. Vì vậy, những món đồ nội thất mang lại sự tiện nghi và không quá đắt đỏ luôn"
+            )}
           </p>
         </div>
       </div>

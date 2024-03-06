@@ -88,6 +88,7 @@ const TextEditor = ({ contentRef }) => {
         "blockquote",
         "list",
         "bullet",
+        "color",
         "indent",
         "link",
         "align",

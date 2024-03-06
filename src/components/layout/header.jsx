@@ -21,8 +21,6 @@ import {
   ACTIVE_TOAST_SUCCESS,
   ACTIVE_TOAST_WARNING,
 } from "../../redux/slices/toast-slice";
-import splitBearer from "../../axios/split-brearer";
-import { getHeader } from "../../content/header";
 
 const Header = ({ searchModal = false, cartUser = [] }) => {
   const dispath = useDispatch();
@@ -61,16 +59,13 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
   };
 
   const getContentHeader = async () => {
-    const { data } = await instance.get("/home", {
+    const { data } = await instance.get("header", {
       method: "get",
-      headers: {
-        "Content-Type": "*",
-      },
     });
     setCollection(data.collections);
     setCollectionItems(data.collectionItems);
+    console.log(data);
   };
-
 
   useEffect(() => {
     getContentHeader();
@@ -197,23 +192,22 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
               )}
             </div>
           </li>
-          {/* <li className="ml-2 cursor-pointer p-2 hover:text-baseColor">
-            <FontAwesomeIcon icon={faHeart} />
-          </li> */}
           <li className="ml-2 p-2 hover:text-baseColor relative cursor-pointer text-[22px] group">
-            <MdOutlineShoppingBag />
-            <p className="absolute top-0 right-0 text-xs w-4 h-4 text-center leading-4 rounded-full bg-baseBg text-white">
-              {cartUser.cart.length}
-            </p>
-            <div className="absolute top-full shadow-mega_menu bg-white w-96 right-0 hidden text-sm rounded-sm overflow-hidden group-hover:block group-hover: cursor-auto">
-              {cartUser.cart.length === 0 ? (
-                <p className="p-5 group-hover:text-black">
-                  Không có sản phẩm nào trong giỏ hàng
-                </p>
-              ) : (
-                <></>
-              )}
-            </div>
+            <Link to={routers.cart} className="block">
+              <MdOutlineShoppingBag />
+              <p className="absolute top-0 right-0 text-xs w-4 h-4 text-center leading-4 rounded-full bg-baseBg text-white">
+                {cartUser.cart.length}
+              </p>
+              <div className="absolute top-full shadow-mega_menu bg-white w-96 right-0 hidden text-sm rounded-sm overflow-hidden group-hover:block group-hover: cursor-auto">
+                {cartUser.cart.length === 0 ? (
+                  <p className="p-5 group-hover:text-black">
+                    Không có sản phẩm nào trong giỏ hàng
+                  </p>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </Link>
           </li>
         </ul>
       </div>

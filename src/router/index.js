@@ -12,8 +12,11 @@ import Blogs from "../pages/blogs";
 import Contact from "../pages/contact";
 import Home from "../pages/home";
 import Login from "../pages/login";
-import Profile from "../pages/profile";
 import Register from "../pages/register";
+import Profile from "../pages/user/profile";
+import Cart from "../pages/user/cart";
+import Order from "../pages/user/order";
+import Bill from "../pages/user/bill";
 
 const publicRouter = [
   {
@@ -39,6 +42,18 @@ const publicRouter = [
   {
     path: routers.register,
     component: Register,
+  },
+  {
+    path: routers.cart,
+    component: Cart,
+  },
+  {
+    path: routers.order,
+    component: Order,
+  },
+  {
+    path: routers.bill,
+    component: Bill,
   },
 ];
 
@@ -80,8 +95,8 @@ const adminRouter = [
   },
   {
     path: routers.newPost,
-    component: NewPost
-  }
+    component: NewPost,
+  },
 ];
 
 export { publicRouter, priveRouter, adminRouter };

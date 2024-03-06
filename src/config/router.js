@@ -17,7 +17,10 @@ const routers = {
     manageOrder: '/quan-ly-don-hang',
     manageRevenue: '/quan-ly-doanh-thu',
     manageBlogs: '/quan-ly-bai-dang',
-    newPost: '/them-bai-dang'
+    newPost: '/them-bai-dang',
+    cart: '/gio-hang',
+    order: '/thong-tin-dat-hang',
+    bill: '/hoa-don'
 }
 
 export default routers

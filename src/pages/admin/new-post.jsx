@@ -3,18 +3,19 @@ import LayoutAdmin from "../../components/layout/admin";
 import routers from "../../config/router";
 import TitlePage from "../../components/page-title";
 import TextEditor from "../../components/text-editor";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import instance from "../../axios/config";
 import uploadImage from "../../upload";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import LoadingSpinner from "../../components/loading/spinner";
 
 const NewPost = () => {
-
   const titleRef = useRef();
   const contentRef = useRef();
   const fileRef = useRef();
+  const [loading, setLoading] = useState(null);
 
   const showToastSuccess = () => {
     toast.success("Tạo bài đăng thành công!");
@@ -26,6 +27,7 @@ const NewPost = () => {
 
   const createPost = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const file = fileRef.current.files[0];
 
@@ -45,13 +47,16 @@ const NewPost = () => {
           },
         }
       );
-
+      console.log(data);
       titleRef.current.value = "";
       contentRef.current.value = "";
+      fileRef.current.file = ""
       showToastSuccess();
     } catch (e) {
       console.log(e);
       showToastError();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,7 +117,8 @@ const NewPost = () => {
           Đăng bài
         </button>
       </form>
-      <ToastContainer />
+      {loading === false && <ToastContainer />}
+      {loading === true && <LoadingSpinner />}
     </LayoutAdmin>
   );
 };
