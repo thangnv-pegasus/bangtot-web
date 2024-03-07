@@ -5,20 +5,23 @@ import { useNavigate } from "react-router-dom";
 import TitlePage from "../components/page-title";
 import Blog from "../components/blogs/blog";
 import LoadingSpinner from "../components/loading/spinner";
+import Pagination from "../components/pagination";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
   const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data } = await instance.get("blogs", {
+      const { data } = await instance.get(`blogs?page=${page}`, {
         method: "get",
       });
-
-      setBlogs(data.blogs);
+      setLastPage(data.blogs.last_page)
+      setBlogs(data.blogs.data);
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -44,6 +47,7 @@ const Blogs = () => {
               })}
               <Blog />;
             </div>
+            <Pagination />
           </div>
         )}
       </div>

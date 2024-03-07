@@ -12,21 +12,18 @@ import Blogs from "../components/blogs";
 import instance from "../axios/config";
 import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
 
-
-
 const Home = () => {
-  const [collection, setCollection] = useState([]);
   const [url, setUrl] = useState(
     localStorage.getItem("token") ? "/user/home" : "/home"
   );
-  const [collectionItems, setCollectionItems] = useState([]);
   const { searchModal, cart, auth } = useSelector((state) => state);
+  const [collection, setCollection] = useState()
   const dispath = useDispatch();
 
   async function fetchData() {
     const token = localStorage.getItem("token");
     try {
-      const res = await instance.get(url, {
+      const {data} = await instance.get(url, {
         method: "get",
         headers: {
           "Authorization": token,
@@ -35,9 +32,8 @@ const Home = () => {
           'Access-Control-Allow-Origin': '*'
         },
       });
-      const { collections, collectionItems, user } = res.data;
-      setCollection(collections);
-      setCollectionItems(collectionItems);
+      const { collections, user } = data;
+      setCollection(collections)
       dispath(
         SET_ACTIVE_USER({
           isLogin: localStorage.getItem("token") != null ? true : false,
@@ -58,7 +54,7 @@ const Home = () => {
 
   return (
     <>
-      <Layout collection={collection} collectionItems={collectionItems}>
+      <Layout>
         {/* banner slider */}
         <Banner />
 
@@ -69,7 +65,7 @@ const Home = () => {
         {/* collections */}
         <Collections />
         {/* feature collections */}
-        <Collection showLink={true} title={"Bảng phấn"} path="" />
+        <Collection showLink={true} title={"Bảng phấn"} path="" collection_id={1}/>
         {/* feature collections */}
         <Collection showLink={true} title={"Bảng phấn"} path="" />
         {/* feature collections */}

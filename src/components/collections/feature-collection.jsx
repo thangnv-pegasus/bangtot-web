@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import Title from "../title";
 import Product from "../product";
 
-const Collection = ({ title, products = [], path = "", showLink = false }) => {
+const Collection = ({ title, collection_id = 1, path = "", showLink = false }) => {
   return (
     <div className="max-w-container mx-auto">
       <div className="py-10">

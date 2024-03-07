@@ -1,11 +1,11 @@
 
-const Row = ({columns = [], classes="", classColumn = ""}) => {
+const Row = ({columns = [], classes="border-solid border-[1px] border-gray-500 ", classColumn = "grid-cols-row_user_table"}) => {
     return (
-        <div className={`grid grid-cols-row_user_table ${classColumn}`}>
+        <div className={`grid ${classColumn}`}>
             {
                 columns.map((item, index) => {
                     return (
-                        <div key={index} className={`border-collapse border-solid border-[1px] border-gray-500 text-center py-1 ${classes}`}>
+                        <div key={index} className={`${classes} border-collapse py-1 `}>
                             {item}
                         </div>
                     )

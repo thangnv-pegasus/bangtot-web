@@ -41,6 +41,7 @@ const Dashboard = () => {
     setBlogs(data.blogs);
     setImages(data.images);
     setHotlines(data.phone);
+    console.log(data.blogs)
   };
 
   useEffect(() => {
@@ -99,7 +100,11 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="">
-          <BlogInfor />
+          {
+            blogs.map((item,index) => {
+              return <BlogInfor blog={item} key={index} /> 
+            })
+          }
         </div>
       </div>
 

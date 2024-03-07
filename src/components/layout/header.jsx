@@ -10,7 +10,6 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import MegaMenu from "../mega-menu";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_SEARCH } from "../../redux/slices/search-modal-slice";
-import axios from "axios";
 import instance from "../../axios/config";
 import { useEffect, useState } from "react";
 import {
@@ -64,7 +63,6 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
     });
     setCollection(data.collections);
     setCollectionItems(data.collectionItems);
-    console.log(data);
   };
 
   useEffect(() => {
