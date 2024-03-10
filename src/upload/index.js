@@ -4,6 +4,8 @@ const uploadImage = async (file, folderName = 'products') => {
   let presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_PRODUCTS
   if(folderName === 'blogs'){
     presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_BLOGS
+  }else if(folderName === 'banner'){
+    presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_SLIDER
   }
   const apikey = import.meta.env.VITE_CLOUDINARY_API_KEY
   const clouname = import.meta.env.VITE_CLOUDINARY_NAME

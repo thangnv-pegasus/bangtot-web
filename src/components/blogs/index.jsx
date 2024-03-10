@@ -10,7 +10,6 @@ const Blogs = () => {
   const fetchData = async () => {
     const { data } = await instance.get(`blogs?page=${1}`);
     setPosts(data.blogs.data);
-    console.log(data)
   };
 
   useEffect(() => {

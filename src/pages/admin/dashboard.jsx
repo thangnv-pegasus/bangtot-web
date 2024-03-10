@@ -41,7 +41,7 @@ const Dashboard = () => {
     setBlogs(data.blogs);
     setImages(data.images);
     setHotlines(data.phone);
-    console.log(data.blogs)
+    // console.log(data.blogs)
   };
 
   useEffect(() => {

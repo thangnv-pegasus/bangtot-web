@@ -17,6 +17,8 @@ import Profile from "../pages/user/profile";
 import Cart from "../pages/user/cart";
 import Order from "../pages/user/order";
 import Bill from "../pages/user/bill";
+import Products from "../pages/products";
+import ProductDetail from "../pages/detail/product-detail";
 
 const publicRouter = [
   {
@@ -55,6 +57,14 @@ const publicRouter = [
     path: routers.bill,
     component: Bill,
   },
+  {
+    path: routers.products,
+    component: Products
+  },
+  {
+    path: routers.productDetail,
+    component: ProductDetail
+  }
 ];
 
 const priveRouter = [

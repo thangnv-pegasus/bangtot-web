@@ -17,7 +17,7 @@ const Home = () => {
     localStorage.getItem("token") ? "/user/home" : "/home"
   );
   const { searchModal, cart, auth } = useSelector((state) => state);
-  const [collection, setCollection] = useState()
+  const [collections, setCollections] = useState([])
   const dispath = useDispatch();
 
   async function fetchData() {
@@ -33,7 +33,8 @@ const Home = () => {
         },
       });
       const { collections, user } = data;
-      setCollection(collections)
+      console.log(collections)
+      setCollections(collections)
       dispath(
         SET_ACTIVE_USER({
           isLogin: localStorage.getItem("token") != null ? true : false,
@@ -64,14 +65,16 @@ const Home = () => {
         </div>
         {/* collections */}
         <Collections />
+
         {/* feature collections */}
-        <Collection showLink={true} title={"Bảng phấn"} path="" collection_id={1}/>
-        {/* feature collections */}
-        <Collection showLink={true} title={"Bảng phấn"} path="" />
-        {/* feature collections */}
-        <Collection showLink={true} title={"Bảng phấn"} path="" />
-        {/* feature collections */}
-        <Collection showLink={true} title={"Bảng phấn"} path="" />
+        {/* <Collection showLink={true} title={"Bảng phấn"} path="" collection_id={1}/> */}
+         {
+          collections.length > 0 && collections.map((item,index) => {
+            return (
+              <Collection showLink={true} title={item.name} path={`/bo-suu-tap/${item.id}`} collection_id={item.id} />
+            )
+          })
+         }
         {/* blogs */}
         <Blogs />
       </Layout>

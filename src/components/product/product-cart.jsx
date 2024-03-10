@@ -29,13 +29,26 @@ const ProductCart = ({ product = {} }) => {
           />
         </div>
         <div className="mx-4">
-          <Link to="" className="block font-meidum transition-all ease-linear hover:text-baseColor">{product.name || "product name"}</Link>
-          <button className="text-sm mt-3 flex items-center bg-rose-600 text-white px-2 py-1 rounded-sm"><span className="mr-1">Xóa</span> <IoTrashOutline /></button>
+          <div className="flex items-center">
+            <Link
+              to=""
+              className="block font-meidum transition-all ease-linear hover:text-baseColor"
+            >
+              {product.name || "product name"}
+            </Link>
+            <p className="text-xs text-gray-600 font-medium ml-5">{product.size || '200 x 600'}</p>
+          </div>
+          <button className="text-sm mt-3 flex items-center bg-rose-600 text-white px-2 py-1 rounded-sm">
+            <span className="mr-1">Xóa</span> <IoTrashOutline />
+          </button>
         </div>
       </div>
       <div className="px-2">{product.price || 30000}</div>
       <div className="flex px-2 items-center text-sm border-[1px] border-solid border-gray-400 w-fit h-fit rounded-md">
-        <button onClick={() => setQuantity((pre) => (pre > 1 ? pre - 1 : pre))} className="px-2 py-3">
+        <button
+          onClick={() => setQuantity((pre) => (pre > 1 ? pre - 1 : pre))}
+          className="px-2 py-3"
+        >
           <FiMinus />
         </button>
         <input

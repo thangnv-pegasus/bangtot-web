@@ -5,99 +5,64 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Title from "../title";
 import Product from "../product";
+import instance from "../../axios/config";
+import { useEffect, useState } from "react";
+import LoadingDots from "../loading/dot";
 
-const Collection = ({ title, collection_id = 1, path = "", showLink = false }) => {
+const Collection = ({
+  title = 'Bảng phấn',
+  collection_id = 1,
+  path = "",
+  showLink = false,
+}) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const { data } = await instance.get(
+      `product-in-collection/${collection_id}`
+    );
+    setProducts(data.products);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="max-w-container mx-auto">
       <div className="py-10">
-        <Title title="Bảng phấn" showLink={showLink} path={path} />
+        <Title title={title} showLink={showLink} path={path} />
         <div className="pt-5">
-          <Swiper
-            slidesPerView={"6"}
-            spaceBetween={10}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={{
-              clickable: true,
-            }}
-            modules={[Navigation]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-                price_sale={700000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Product
-                path="/"
-                img={"https://via.placeholder.com/200x200"}
-                title="collection name"
-                type="product"
-                price={800000}
-              />
-            </SwiperSlide>
-          </Swiper>
+          {loading === false ? (
+            <Swiper
+              slidesPerView={"6"}
+              spaceBetween={10}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={{
+                clickable: true,
+              }}
+              modules={[Navigation]}
+              className="mySwiper"
+            >
+              {products.length > 0 &&
+                products.map((item, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <Product product={item} type="product" />
+                    </SwiperSlide>
+                  );
+                })}
+            </Swiper>
+          ) : (
+            <>
+              <LoadingDots />
+            </>
+          )}
         </div>
       </div>
     </div>

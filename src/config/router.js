@@ -10,7 +10,7 @@ const routers = {
     profile: '/tai-khoan',
     productForm: '/form-san-pham/:id',
     addProduct: '/them-san-pham',
-    productDetail: '/chi-tiet-san-pham',
+    productDetail: '/chi-tiet-san-pham/:id',
     manageStore: '/quan-ly-cua-hang',
     manageUser: '/quan-ly-user',
     manageProduct: '/quan-ly-san-pham',
