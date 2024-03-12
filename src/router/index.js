@@ -14,7 +14,7 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Profile from "../pages/user/profile";
-import Cart from "../pages/user/cart";
+import Cart from "../pages/cart";
 import Order from "../pages/user/order";
 import Bill from "../pages/user/bill";
 import Products from "../pages/products";
@@ -64,6 +64,9 @@ const publicRouter = [
   {
     path: routers.productDetail,
     component: ProductDetail
+  },{
+    path: routers.cart,
+    component: Cart
   }
 ];
 

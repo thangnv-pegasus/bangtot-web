@@ -56,7 +56,7 @@ const Product = ({
             to={setPath(type)}
             className="block rounded-sm overflow-hidden w-full group"
           >
-            <div className="w-full h-auto relative overflow-hidden">
+            <div className="w-full h-48 relative overflow-hidden">
               <img
                 src={image}
                 alt={product.name || "product name"}
@@ -68,7 +68,7 @@ const Product = ({
           </Link>
           <Link
             to={setPath(type)}
-            className="block transition-all ease-linear hover:text-baseColor py-1 mt-1 font-medium px-1"
+            className="transition-all ease-linear hover:text-baseColor my-1 font-medium px-1 line-clamp-1"
           >
             {product.name || collection.name || "product name"}
           </Link>

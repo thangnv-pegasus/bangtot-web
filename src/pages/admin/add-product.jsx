@@ -66,15 +66,15 @@ const AddProduct = () => {
       }
       const prodReqest = {
         name,
-        price,
-        price_sale,
+        price: Number(price),
+        price_sale: Number(price_sale),
         description,
         detail,
-        collectionId,
+        collectionId: Number(collectionId),
         sizes: listChecked,
         image: arr,
       };
-      console.log(prodReqest)
+      // console.log(prodReqest)
       const { data } = await instance.post("admin/create-product", prodReqest, {
         method: "post",
         headers: {
@@ -83,7 +83,7 @@ const AddProduct = () => {
           Accept: "application/json",
         },
       });
-
+      console.log(data)
       setResultReq(true);
       setListChecked([]);
       toastSuccess();

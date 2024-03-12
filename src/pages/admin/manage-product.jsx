@@ -19,6 +19,7 @@ const ManageProduct = () => {
     });
     setProducts(data.products.data);
     setImages(data.images)
+    console.log(data)
   };
 
   const urlImage = (productId) => {
