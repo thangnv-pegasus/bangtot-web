@@ -12,6 +12,13 @@ const ProductCart = ({ product = {} }) => {
     const { data } = await instance.get(`image-product/${product.id}`);
 
     setImage(data.image);
+    console.log(data)
+  };
+
+  const formatNumber = (num) => {
+    const x = Number(num);
+
+    return x.toLocaleString();
   };
 
   useEffect(() => {
@@ -19,11 +26,11 @@ const ProductCart = ({ product = {} }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-3_1_2_1 p-4">
+    <div className="grid grid-cols-3_1_2_1 gap-x-10 py-4">
       <div className="flex px-2">
         <div className="w-24 h-24 overflow-hidden">
           <img
-            src={image[0] || "https://via.placeholder.com/200x200"}
+            src={image[0]?.name || "https://via.placeholder.com/200x200"}
             alt=""
             className="block w-full h-full object-cover object-center"
           />
@@ -36,14 +43,20 @@ const ProductCart = ({ product = {} }) => {
             >
               {product.name || "product name"}
             </Link>
-            <p className="text-xs text-gray-600 font-medium ml-5">{product.size || '200 x 600'}</p>
+            <p className="text-xs text-gray-600 font-medium ml-5">
+              {product.size_name || "200 x 600"}
+            </p>
           </div>
           <button className="text-sm mt-3 flex items-center bg-rose-600 text-white px-2 py-1 rounded-sm">
             <span className="mr-1">Xóa</span> <IoTrashOutline />
           </button>
         </div>
       </div>
-      <div className="px-2">{product.price || 30000}</div>
+      <div className="px-2">
+        {(product.price_sale !== 0 ? product.price_sale : product.price) ||
+          30000}
+        <sup>đ</sup> 
+      </div>
       <div className="flex px-2 items-center text-sm border-[1px] border-solid border-gray-400 w-fit h-fit rounded-md">
         <button
           onClick={() => setQuantity((pre) => (pre > 1 ? pre - 1 : pre))}
@@ -61,7 +74,11 @@ const ProductCart = ({ product = {} }) => {
           <FaPlus />
         </button>
       </div>
-      <div className="px-2">{product.price * quantity || 300000}</div>
+      <div className="px-2">
+        {(product.price_sale !== 0 ? product.price_sale : product.price) *
+          quantity || 300000}{" "}
+        <sup>đ</sup>{" "}
+      </div>
     </div>
   );
 };

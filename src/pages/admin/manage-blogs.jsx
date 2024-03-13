@@ -10,10 +10,11 @@ const ManageBlogs = () => {
 
   const fetchData = async () => {
     try {
-      const { data } = await instance.get("blogs", {
+      const { data } = await instance.get(`blogs?page=${1}`, {
         method: "get",
-      });
-      setBlogs(data.blogs);
+      }); 
+      setBlogs(data.blogs.data); 
+      console.log(data)
     } catch (e) {
       console.log(e);
     }
@@ -35,7 +36,13 @@ const ManageBlogs = () => {
         </Link>
       </div>
       <div>
-        <BlogInfor />
+        {
+          blogs.map((item,index) => {
+            return (
+              <BlogInfor blog={item} key={index} />
+            )
+          })
+        }
       </div>
     </LayoutAdmin>
   );

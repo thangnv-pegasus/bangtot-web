@@ -33,7 +33,7 @@ const Home = () => {
         },
       });
       const { collections, user } = data;
-      console.log(collections)
+      // console.log(collections)
       setCollections(collections)
       dispath(
         SET_ACTIVE_USER({

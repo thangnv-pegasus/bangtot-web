@@ -70,7 +70,7 @@ const AddProduct = () => {
         price_sale: Number(price_sale),
         description,
         detail,
-        collectionId: Number(collectionId),
+        collectionId:collectionId,
         sizes: listChecked,
         image: arr,
       };
