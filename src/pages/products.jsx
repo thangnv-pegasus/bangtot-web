@@ -8,8 +8,8 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState({
     current_page: 1,
-    last_page: 1
-  })
+    last_page: 1,
+  });
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
@@ -19,8 +19,8 @@ const Products = () => {
     setLoading(false);
     setPage({
       current_page: data.products.current_page,
-      last_page: data.products.last_page
-    })
+      last_page: data.products.last_page,
+    });
   };
 
   useEffect(() => {
@@ -31,15 +31,23 @@ const Products = () => {
     <Layout>
       <div className="max-w-container mx-auto">
         <div className="py-10">
-          <TitlePage title="Tất cả sản phẩm" classes="font-medium text-xl pb-5" />
+          <TitlePage
+            title="Tất cả sản phẩm"
+            classes="font-medium text-xl pb-5"
+          />
           <div className="grid grid-cols-5 gap-10">
             {products.map((item, index) => {
               return <Product product={item} key={index} />;
             })}
           </div>
-          <div>
-            <Pagination currentPage={page.current_page} lastPage={page.last_page} />
-          </div>
+          {products.length > 0 && (
+            <div>
+              <Pagination
+                currentPage={page.current_page}
+                lastPage={page.last_page}
+              />
+            </div>
+          )}
         </div>
       </div>
     </Layout>
