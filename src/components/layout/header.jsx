@@ -65,8 +65,28 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
     setCollectionItems(data.collectionItems);
   };
 
+  const fetchUser = async () => {
+    const { data } = await instance.get("user", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    console.log(data.user)
+    dispath(
+      SET_ACTIVE_USER({
+        isLogin: true,
+        user: data.user,
+        isAdmin: data.user.role === "admin" ? true : false,
+        token: localStorage.getItem("token"),
+      })
+    );
+  };
+
   useEffect(() => {
     getContentHeader();
+    if (localStorage.getItem("token")) {
+      fetchUser();
+    }
   }, []);
 
   return (

@@ -47,7 +47,7 @@ const Blogs = () => {
               })}
               <Blog />;
             </div>
-            <Pagination />
+            <Pagination currentPage={page} lastPage={lastPage}/>
           </div>
         )}
       </div>
