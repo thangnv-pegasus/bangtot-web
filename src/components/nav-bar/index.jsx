@@ -54,7 +54,7 @@ const NavBar = () => {
         </p>
         <p className="text-sm my-1">người dùng</p>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to={routers.manageRevenue}
         className={({ isActive }) =>
           checkActive(isActive) +
@@ -65,7 +65,7 @@ const NavBar = () => {
           <FaChartBar />
         </p>
         <p className="text-sm my-1">Thống kê</p>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to={routers.manageOrder}
         className={({ isActive }) =>

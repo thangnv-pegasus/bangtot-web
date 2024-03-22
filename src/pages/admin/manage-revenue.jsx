@@ -1,10 +1,11 @@
+import LayoutAdmin from "../../components/layout/admin"
 
 
 const ManageRevenue = () => {
     return (
-        <div>
+        <LayoutAdmin>
             this is ManageRevenue page
-        </div>
+        </LayoutAdmin>
     )
 }
 
