@@ -25,18 +25,18 @@ const Banner = () => {
       className="mySwiper select-none"
     >
       <SwiperSlide>
-        <div className="w-full">
-          <img src='https://via.placeholder.com/1600x600' alt="" className="w-full h-full"/>
+        <div className="w-full h-[600px]">
+          <img src='https://bangtot.vn/wp-content/uploads/2018/12/slideshow2.png' alt="" className="w-full h-full"/>
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="w-full">
-          <img src="https://via.placeholder.com/1600x600" alt="" className="w-full h-full"/>
+        <div className="w-full h-[600px]">
+          <img src="https://bangtot.vn/wp-content/uploads/2018/12/slideshow1.png" alt="" className="w-full h-full"/>
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="w-full">
-          <img src="https://via.placeholder.com/1600x600" alt="" className="w-full h-full"/>
+        <div className="w-full h-[600px]">
+          <img src="https://shopbang.vn/images/uploads/450_141814151220151.jpg?v=2018" alt="" className="w-full h-full"/>
         </div>
       </SwiperSlide>
     </Swiper>

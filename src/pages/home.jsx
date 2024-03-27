@@ -54,8 +54,6 @@ const Home = () => {
         {/* collections */}
         <Collections />
 
-        {/* feature collections */}
-        {/* <Collection showLink={true} title={"Bảng phấn"} path="" collection_id={1}/> */}
         {collections.length > 0 &&
           collections.map((item, index) => {
             return (

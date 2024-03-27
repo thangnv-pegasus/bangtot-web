@@ -70,7 +70,7 @@ const AddProduct = () => {
         price_sale: Number(price_sale),
         description,
         detail,
-        collectionId:collectionId,
+        collectionId: collectionId,
         sizes: listChecked,
         image: arr,
       };
@@ -83,7 +83,6 @@ const AddProduct = () => {
           Accept: "application/json",
         },
       });
-      console.log(data)
       setResultReq(true);
       setListChecked([]);
       toastSuccess();

@@ -58,6 +58,8 @@ const ManageProduct = () => {
               price={item.price}
               price_sale={item.price_sale}
               idProduct = {item.id}
+              setProducts = {setProducts}
+              setImages = {setImages}
             />
           );
         })}
