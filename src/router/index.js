@@ -19,6 +19,7 @@ import Order from "../pages/user/order";
 import Bill from "../pages/user/bill";
 import Products from "../pages/products";
 import ProductDetail from "../pages/detail/product-detail";
+import Search from "../pages/search";
 
 const publicRouter = [
   {
@@ -67,6 +68,9 @@ const publicRouter = [
   },{
     path: routers.cart,
     component: Cart
+  },{
+    path: routers.search,
+    component: Search
   }
 ];
 

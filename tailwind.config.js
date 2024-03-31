@@ -119,7 +119,8 @@ export default {
         '4_6': '4fr 6fr',
         '6_4': '6fr 4fr',
         '3_1_2_1': '3fr 1fr 2fr 1fr',
-        '3_1_2_1': '3fr 1fr 2fr 1fr'
+        '3_1_2_1': '3fr 1fr 2fr 1fr',
+        '3_9': '3fr 9fr'
       }
     },
   },

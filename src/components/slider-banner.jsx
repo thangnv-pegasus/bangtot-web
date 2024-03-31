@@ -6,8 +6,24 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import '../custom-css/banner-slider.css'
+import "../custom-css/banner-slider.css";
+import instance from "../axios/config";
+import { useEffect, useState } from "react";
 const Banner = () => {
+  const [banner, setBanner] = useState([]);
+
+  const fetchData = async () => {
+    const { data } = await instance.get("banner");
+
+    if (data.status == 200) {
+      setBanner(data.banner);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Swiper
       spaceBetween={30}
@@ -24,21 +40,15 @@ const Banner = () => {
       modules={[Autoplay, Pagination, Navigation]}
       className="mySwiper select-none"
     >
-      <SwiperSlide>
-        <div className="w-full h-[600px]">
-          <img src='https://bangtot.vn/wp-content/uploads/2018/12/slideshow2.png' alt="" className="w-full h-full"/>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="w-full h-[600px]">
-          <img src="https://bangtot.vn/wp-content/uploads/2018/12/slideshow1.png" alt="" className="w-full h-full"/>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="w-full h-[600px]">
-          <img src="https://shopbang.vn/images/uploads/450_141814151220151.jpg?v=2018" alt="" className="w-full h-full"/>
-        </div>
-      </SwiperSlide>
+      {banner.map((item, index) => {
+        return (
+          <SwiperSlide key={index}>
+            <div className="w-full h-60 md:h-96 lg:h-[550px]">
+              <img src={item.url} alt="" className="w-full h-full" />
+            </div>
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 };

@@ -25,12 +25,12 @@ const Bill = () => {
   const getSum = (products = [], init = 0) => {
     const sum = products.reduce((pre_total, current) => {
       if (current.price_sale != 0) {
-        return pre_total + current.price_sale * current.quantity;
+        return (pre_total + current.price_sale + current.factor) * current.quantity;
       }
-      return pre_total + current.price * current.quantity;
-    }, init);
+      return (pre_total + current.price + current.factor) * current.quantity;
+    }, 0);
 
-    return sum.toLocaleString();
+    return (sum + init).toLocaleString();
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Bill = () => {
             className="mx-auto"
           />
         </div>
-        <div className="grid grid-cols-6_4 py-5 gap-x-10">
+        <div className="grid lg:grid-cols-6_4 grid-cols-1 py-5 gap-x-5 lg:gap-x-10">
           <div>
             <div className="flex items-center pb-10">
               <div className="text-6xl text-[#8EC343]">

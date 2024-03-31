@@ -27,19 +27,33 @@ const Collections = () => {
   }, []);
 
   return (
-    <div className="max-w-container mx-auto">
+    <div className="md:max-w-[760px] max-w-full px-10 lg:max-w-[1000px] md:px-0 xl:max-w-container mx-auto">
       <div className="py-10">
-        <Title title="Các loại bảng" />
+        <Title title="Bộ sưu tập" />
         {loading === false ? (
           <div className="pt-5">
             <Swiper
-              slidesPerView={"6"}
+              slidesPerView={3}
               spaceBetween={10}
               pagination={{
                 clickable: true,
               }}
               navigation={{
                 clickable: true,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+                1024: {
+                  slidesPerView: 6,
+                  spaceBetween: 10,
+                },
               }}
               modules={[Navigation]}
               className="mySwiper"
@@ -54,7 +68,7 @@ const Collections = () => {
                 })}
             </Swiper>
           </div>
-        ): (
+        ) : (
           <>
             <LoadingDots />
           </>

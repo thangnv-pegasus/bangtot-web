@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import routers from "../../config/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,36 +16,26 @@ import {
   SET_ACTIVE_USER,
   SET_REMOVE_USER,
 } from "../../redux/slices/auth-slice";
-import {
-  ACTIVE_TOAST_SUCCESS,
-  ACTIVE_TOAST_WARNING,
-} from "../../redux/slices/toast-slice";
 
-const Header = ({ searchModal = false, cartUser = [] }) => {
+const Header = ({ searchModal = false }) => {
   const dispath = useDispatch();
   const auth = useSelector((state) => state.auth);
   const [collection, setCollection] = useState([]);
-  const [collectionItems, setCollectionItems] = useState([]);
-
+  const navigate = useNavigate();
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await instance.post("logout", {
+      const response = await instance.post("user/logout", {
         method: "post",
         headers: {
           Authorization: localStorage.getItem("token"),
-          "X-Requested-With": "*",
-          "Access-Control-Allow-Origin": "*/*",
         },
       });
       dispath(SET_REMOVE_USER());
-
-      dispath(ACTIVE_TOAST_SUCCESS("Đăng xuất thành công!"));
-
+      // navigate("/");
       localStorage.clear();
     } catch (e) {
       console.log(e);
-      dispath(ACTIVE_TOAST_WARNING("Đăng xuất không thành công!"));
     }
   };
 
@@ -62,7 +52,7 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
       method: "get",
     });
     setCollection(data.collections);
-    setCollectionItems(data.collectionItems);
+    // setCollectionItems(data.collectionItems);
   };
 
   const fetchUser = async () => {
@@ -71,7 +61,6 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
         Authorization: localStorage.getItem("token"),
       },
     });
-    console.log(data.user)
     dispath(
       SET_ACTIVE_USER({
         isLogin: true,
@@ -91,20 +80,20 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
 
   return (
     <div className="bg-white shadow-slate_bottom fixed left-0 top-0 right-0 z-40 scroll-smooth">
-      <div className="max-w-container mx-auto flex items-center">
+      <div className="md:max-w-[760px] max-w-full px-10 md:px-0 lg:max-w-[1000px] xl:max-w-container mx-auto flex items-center">
         <NavLink
           to={routers.home}
-          className={({ isActive }) => checkActive(isActive) + " block"}
+          className={({ isActive }) => checkActive(isActive) + " block lg:w-60 sm:w-40"}
         >
           <img src="https://via.placeholder.com/240x50" alt="logo" />
         </NavLink>
-        <div className="flex-1 flex items-center justify-center font-medium text-base py-4">
+        <div className="flex-1 flex items-center justify-center font-medium lg:text-base text-sm py-4">
           <NavLink
             to={routers.home}
             // className=""
             className={({ isActive }) =>
               checkActive(isActive) +
-              " block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
+              " block sm:px-2 sm:mx-1 xl:px-4 py-4 xl:mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             }
           >
             Trang chủ
@@ -114,7 +103,7 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
             // className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             className={({ isActive }) =>
               checkActive(isActive) +
-              " block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
+              " block sm:px-2 sm:mx-1 xl:px-4 py-4 xl:mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             }
           >
             Giới thiệu
@@ -125,7 +114,7 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
               // className="flex items-center px-4 py-4 mx-3 transition-all ease-linear group duration-200 hover:text-baseColor relative"
               className={({ isActive }) =>
                 checkActive(isActive) +
-                " flex items-center px-4 py-4 mx-3 transition-all ease-linear group duration-200 hover:text-baseColor relative"
+                " flex items-center xl:px-4 py-4 xl:mx-3 sm:px-2 sm:mx-1 transition-all ease-linear group duration-200 hover:text-baseColor relative"
               }
             >
               <p>Sản phẩm</p>{" "}
@@ -133,17 +122,14 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
                 <FontAwesomeIcon icon={faSortDown} />
               </p>
             </NavLink>
-            <MegaMenu
-              collections={collection}
-              collectionItems={collectionItems}
-            />
+            <MegaMenu collections={collection} />
           </div>
           <NavLink
             to={routers.blogs}
             // className="block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             className={({ isActive }) =>
               checkActive(isActive) +
-              " block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
+              " block sm:px-2 sm:mx-1 xl:px-4 py-4 xl:mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             }
           >
             Tin tức
@@ -152,15 +138,15 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
             to={routers.contact}
             className={({ isActive }) =>
               checkActive(isActive) +
-              " block px-4 py-4 mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
+              " block sm:px-2 sm:mx-1 xl:px-4 py-4 xl:mx-3 transition-all ease-linear duration-200 hover:text-baseColor"
             }
           >
             Liên hệ
           </NavLink>
         </div>
-        <ul className="flex text-lg items-center font-normal">
+        <ul className="flex lg:text-lg text-base items-center font-normal">
           <li
-            className="ml-2 cursor-pointer p-2 hover:text-baseColor relative"
+            className="lg:ml-2 cursor-pointer lg:p-2 p-1 ml-1 hover:text-baseColor relative"
             onClick={() => dispath(OPEN_SEARCH(true))}
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -172,13 +158,13 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
                 <>
                   <Link
                     to={routers.login}
-                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                    className="block lg:text-base text-sm py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
                   >
                     Đăng nhập
                   </Link>
                   <Link
                     to={routers.register}
-                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                    className="block lg:text-base text-sm py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
                   >
                     Đăng ký
                   </Link>
@@ -187,21 +173,21 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
                 <>
                   <Link
                     to={routers.profile}
-                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                    className="block lg:text-base text-sm py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
                   >
                     {auth.user.name}
                   </Link>
                   {auth.user.role === "admin" && (
                     <Link
                       to={routers.manageStore}
-                      className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                      className="block lg:text-base text-sm py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
                     >
                       Quản lý cửa hàng
                     </Link>
                   )}
                   <Link
                     // to={routers.logout}
-                    className="block text-base py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
+                    className="block lg:text-base text-sm py-1 text-center hover:bg-baseBg hover:text-white transition-all ease-linear"
                     onClick={(e) => handleLogout(e)}
                   >
                     Đăng xuất
@@ -211,20 +197,8 @@ const Header = ({ searchModal = false, cartUser = [] }) => {
             </div>
           </li>
           <li className="ml-2 p-2 hover:text-baseColor relative cursor-pointer text-[22px] group">
-            <Link to={routers.cart} className="block">
+            <Link to={routers.cart} className="block" title="Giỏ hàng">
               <MdOutlineShoppingBag />
-              <p className="absolute top-0 right-0 text-xs w-4 h-4 text-center leading-4 rounded-full bg-baseBg text-white">
-                {cartUser.cart.length}
-              </p>
-              <div className="absolute top-full shadow-mega_menu bg-white w-96 right-0 hidden text-sm rounded-sm overflow-hidden group-hover:block group-hover: cursor-auto">
-                {cartUser.cart.length === 0 ? (
-                  <p className="p-5 group-hover:text-black">
-                    Không có sản phẩm nào trong giỏ hàng
-                  </p>
-                ) : (
-                  <></>
-                )}
-              </div>
             </Link>
           </li>
         </ul>

@@ -29,8 +29,8 @@ const socials = [
 const Footer = () => {
   return (
     <div className="min-h-[200px] bg-[#f4f2e9] text-black">
-      <div className="max-w-container mx-auto py-8">
-        <div className="grid grid-cols-4 gap-3">
+      <div className="md:max-w-[760px] px-10 md:px-0 max-w-full lg:max-w-[1000px] xl:max-w-container mx-auto py-8">
+        <div className="grid xl:grid-cols-4 xl:gap-3 grid-cols-2 md:gap-4 gap-2">
           <div>
             <h1 className="text-lg uppercase font-semibold mb-2">Bảng Đẹp</h1>
             <ul className="text-sm">

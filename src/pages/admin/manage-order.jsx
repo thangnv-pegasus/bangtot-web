@@ -124,9 +124,9 @@ const RowOrder = ({ products = [], order = {}, setOrders }) => {
     // console.log(product);
     const sum = product.reduce((pre_total, current) => {
       if (current.price_sale != 0) {
-        return pre_total + current.price_sale * current.quantity;
+        return pre_total + (current.price_sale + current.factor) * current.quantity;
       }
-      return pre_total + current.price * current.quantity;
+      return pre_total + (current.price + current.factor) * current.quantity;
     }, init);
 
     return sum.toLocaleString();

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/layout";
 import instance from "../../axios/config";
 import { useEffect, useState } from "react";
@@ -19,6 +19,7 @@ import TitlePage from "../../components/page-title";
 import Product from "../../components/product";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 const ProductDetail = () => {
   const { id } = useParams();
 
@@ -31,8 +32,9 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [showToast, setShowToast] = useState()
-
+  const [showToast, setShowToast] = useState();
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const fetchData = async () => {
     setLoading(true);
     const { data } = await instance.get(`product/${id}`);
@@ -43,22 +45,30 @@ const ProductDetail = () => {
     setSizes(data.sizes);
     setSelectSize(data.sizes[0]);
     setRelatedProducts(data.related);
+    console.log(data)
     setLoading(false);
   };
 
+
   const addToCart = async () => {
-    try {
-      const { data } = await instance.post("user/add-to-cart", {
-        productId: id,
-        quantity: Number(quantity),
-        sizeId: Number(selectSize.idSize),
-      });
-      showToastMessage()
-      setShowToast(true)
-    } catch (e) {
-      console.log(e);
-      showToastError()
-      setShowToast(false)
+    
+    if (auth.isLogin === false) {
+      navigate("/dang-nhap");
+    } else {
+      try {
+        const { data } = await instance.post("user/add-to-cart", {
+          productId: id,
+          quantity: Number(quantity),
+          sizeId: Number(selectSize.idSize),
+        });
+        showToastMessage();
+        setShowToast(true);
+        console.log(data)
+      } catch (e) {
+        console.log(e);
+        showToastError();
+        setShowToast(false);
+      }
     }
   };
   // console.log(selectSize)
@@ -74,14 +84,14 @@ const ProductDetail = () => {
 
   const showToastError = () => {
     toast.error("Thêm sản phẩm thất bại!");
-  }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <Layout>
-      <div className="max-w-container mx-auto">
+      <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         <div className="py-10">
           {loading === true ? (
             <>
@@ -90,9 +100,9 @@ const ProductDetail = () => {
             </>
           ) : (
             <>
-              <div className="grid grid-cols-4_6 gap-x-16 pb-10">
+              <div className="grid grid-cols-4_6 gap-x-5 md:gap-x-16 pb-10">
                 <div>
-                  <div className="w-full h-auto overflow-hidden rounded-sm">
+                  <div className="w-full h-96 overflow-hidden rounded-sm">
                     <img
                       src={currentImg?.name}
                       alt={currentImg?.name}
@@ -111,7 +121,7 @@ const ProductDetail = () => {
                         return (
                           <SwiperSlide key={index}>
                             <div
-                              className={`w-full h-auto overflow-hidden border-[2px] border-solid rounded-sm cursor-pointer p-2 ${
+                              className={`w-full h-24 overflow-hidden border-[2px] border-solid rounded-sm cursor-pointer p-2 ${
                                 item.name === currentImg.name
                                   ? "border-gray-300 opacity-100"
                                   : "opacity-50 border-gray-200"
@@ -133,15 +143,15 @@ const ProductDetail = () => {
                 <div>
                   <h1 className="text-2xl font-semibold">{product.name}</h1>
                   {product.price_sale != 0 ? (
-                    <div className="mt-4">
-                      <p className="text-xl font-semibold text-orange-500">
-                        {formatNumber(product.price_sale)}{" "}
-                        <sup className="top-0 text-sm underline -left-[2px]">
+                    <div className="mt-4 flex items-center">
+                      <p className="text-xl font-semibold text-orange-500 relative">
+                        {formatNumber(product.price_sale + selectSize?.factor)}{" "}
+                        <sup className="top-1/2 text-sm underline -left-[2px]">
                           đ
                         </sup>
                       </p>
                       <p className="ml-2 text-gray-400 line-through decoration-2">
-                        {formatNumber(product.price)}{" "}
+                        {formatNumber(product.price + selectSize?.factor)}{" "}
                         <sup className="top-0 text-sm underline -left-[2px]">
                           đ
                         </sup>
@@ -149,7 +159,7 @@ const ProductDetail = () => {
                     </div>
                   ) : (
                     <p className="text-xl font-medium text-orange-500 mt-4">
-                      {formatNumber(product.price)}{" "}
+                      {formatNumber(product.price + selectSize?.factor)}{" "}
                       <sup className="top-0 text-sm underline -left-[2px]">
                         đ
                       </sup>

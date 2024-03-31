@@ -53,14 +53,14 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="max-w-container mx-auto">
+      <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         <div className="py-10">
           <h1 className="text-center uppercase font-semibold text-2xl pb-4">
             Đăng nhập
           </h1>
           <form
             method="post"
-            className="block w-1/3 mx-auto"
+            className="block w-full lg:w-1/3 mx-auto"
             onSubmit={(e) => handleSubmit(e)}
           >
             <div className="my-4">

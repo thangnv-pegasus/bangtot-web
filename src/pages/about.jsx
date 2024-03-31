@@ -4,7 +4,7 @@ import TitlePage from "../components/page-title";
 const About = () => {
   return (
     <Layout>
-      <div className="max-w-container mx-auto">
+      <div className="lg:max-w-[1000px] md:max-w-[760px] px-10 max-w-full md:px-0 xl:max-w-container mx-auto">
         <TitlePage
           title="BANGDEP.VN CHUYÊN GIA SẢN XUẤT CÁC LOẠI BẢNG :"
           classes="font-semibold text-baseColor"

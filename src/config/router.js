@@ -20,7 +20,8 @@ const routers = {
     newPost: '/them-bai-dang',
     cart: '/gio-hang',
     order: '/thong-tin-dat-hang',
-    bill: '/hoa-don'
+    bill: '/hoa-don',
+    search: '/search/:value'
 }
 
 export default routers

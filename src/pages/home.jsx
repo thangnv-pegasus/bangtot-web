@@ -56,14 +56,16 @@ const Home = () => {
 
         {collections.length > 0 &&
           collections.map((item, index) => {
-            return (
-              <Collection
-                showLink={true}
-                title={item.name}
-                path={`/bo-suu-tap/${item.id}`}
-                collection_id={item.id}
-              />
-            );
+            if(index < 6){
+              return (
+                <Collection
+                  showLink={true}
+                  title={item.name}
+                  path={`/bo-suu-tap/${item.id}`}
+                  collection_id={item.id}
+                />
+              );
+            }
           })}
         {/* blogs */}
         <Blogs />

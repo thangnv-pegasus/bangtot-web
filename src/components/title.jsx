@@ -7,8 +7,8 @@ const Title = ({
   classess,
 }) => {
   return (
-    <div className="flex justify-between items-center py-2">
-      <h1 className={`text-xl font-medium uppercase ${classess}`}>{title}</h1>
+    <div className="flex justify-between items-center py-">
+      <h1 className={`xl:text-xl font-medium uppercase2 text-lg ${classess}`}>{title}</h1>
       {showLink && (
         <Link
           to={path}

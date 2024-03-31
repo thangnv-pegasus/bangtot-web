@@ -11,6 +11,7 @@ import {
   ACTIVE_TOAST_WARNING,
   CLOSE_TOAST,
 } from "../redux/slices/toast-slice";
+import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
   const emailRef = useRef();
@@ -22,7 +23,7 @@ const Register = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await instance.post("/register", {
+    const { data } = await instance.post("/register", {
       method: "post",
       data: {
         email: emailRef.current.value,
@@ -32,33 +33,36 @@ const Register = () => {
         password: passwordRef.current.value,
       },
     });
-    if (res.data.code == 400) {
-      dispath(ACTIVE_TOAST_ERROR(res.data.message));
-    } else if (res.data.code == 200) {
-      dispath(ACTIVE_TOAST_SUCCESS(res.data.message));
-    } else if (res.data.code == 301) {
-      dispath(ACTIVE_TOAST_WARNING(res.data.message));
+    if (data.status == 200) {
+      showToastSuccess();
+      emailRef.current.value = ""
+      fullnameRef.current.value = ""
+      addressRef.current.value = ""
+      passwordRef.current.value = ""
+      phoneRef.current.value = ""
+    } else {
+      showToastError();
     }
-    const closeToast = setTimeout(() => {
-      dispath(CLOSE_TOAST());
-    }, 3000);
-    closeToast();
-
-    clearTimeout(closeToast)
   };
-  
-  
+
+  const showToastSuccess = () => {
+    toast.success("Đăng kí tài khoản thành công!");
+  };
+
+  const showToastError = () => {
+    toast.error("Đăng kí tài khoản thất bại!");
+  };
 
   return (
     <Layout>
-      <div className="max-w-container mx-auto">
+      <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         <div className="py-10">
           <h1 className="text-center uppercase font-semibold text-2xl pb-4">
             Đăng ký
           </h1>
           <form
             method="post"
-            className="block w-1/3 mx-auto"
+            className="block w-full lg:w-1/3 mx-auto"
             onSubmit={(e) => handleSubmit(e)}
           >
             <div className="my-4">
@@ -126,6 +130,7 @@ const Register = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </Layout>
   );
 };

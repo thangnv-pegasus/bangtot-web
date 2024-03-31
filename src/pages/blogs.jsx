@@ -35,17 +35,17 @@ const Blogs = () => {
 
   return (
     <Layout>
-      <div className="max-w-container mx-auto">
+      <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         {loading === true ? (
           <LoadingSpinner />
         ) : (
           <div className="py-10">
             <TitlePage title="Tin tức" classes="font-semibold pb-5" />
-            <div className="grid grid-cols-3 gap-10">
+            <div className="grid lg:grid-cols-3 gap-10 grid-cols-2">
               {blogs.map((item, index) => {
                 return <Blog blog={item} key={index} />;
               })}
-              <Blog />;
+              <Blog />
             </div>
             <Pagination currentPage={page} lastPage={lastPage}/>
           </div>

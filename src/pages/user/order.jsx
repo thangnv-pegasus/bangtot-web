@@ -32,9 +32,15 @@ const Order = () => {
   const total = (arr) => {
     const result = arr.reduce((pre_total, currentValue) => {
       if (currentValue.price_sale == 0) {
-        return pre_total + currentValue.price;
+        return (
+          (pre_total + currentValue.price + currentValue.factor) *
+          currentValue.quantity
+        );
       }
-      return pre_total + currentValue.price_sale;
+      return (
+        (pre_total + currentValue.price_sale + currentValue.factor) *
+        currentValue.quantity
+      );
     }, 0);
 
     return result.toLocaleString();
@@ -78,10 +84,10 @@ const Order = () => {
 
   return (
     <Layout>
-      <div className="max-w-container mx-auto">
+      <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         <div className="py-10">
-          <div className="grid grid-cols-6_4 gap-x-10">
-            <form action="" method="post">
+          <div className="grid md:grid-cols-6_4 flex-wrap gap-x-5 lg:gap-x-10">
+            <form action="" method="post" className="block">
               <TitlePage
                 title="Thông tin nhận hàng"
                 classes="text-lg font-semibold select-none"
@@ -152,14 +158,14 @@ const Order = () => {
                 </div>
               </div>
             </form>
-            <div>
+            <div className="block md:pt-0 pt-28">
               <TitlePage
                 title="Đơn hàng của bạn"
                 classes="text-lg font-medium select-none"
               />
               {cart.length > 0 && (
-                <div className="pt-5">
-                  <div className="max-h-96 h-96 overflow-y-auto">
+                <div className="md:pt-5 pt-10">
+                  <div className="max-h-96 overflow-y-auto">
                     {cart.map((item, index) => {
                       return <ProductOrder product={item} key={index} />;
                     })}

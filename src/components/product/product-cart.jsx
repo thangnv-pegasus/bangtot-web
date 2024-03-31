@@ -36,7 +36,7 @@ const ProductCart = ({ product = {}, setCart }) => {
         },
       }
     );
-    // console.log(data)
+    setCart(data.cart)
   };
 
   const deleteProduct = async () => {

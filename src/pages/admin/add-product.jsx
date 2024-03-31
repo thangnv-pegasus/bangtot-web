@@ -11,6 +11,7 @@ import LoadingSpinner from "../../components/loading/spinner";
 import SizeItem from "../../components/size/item";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AddSize from "../../components/modal/add-size";
 const AddProduct = () => {
   // input ref
   const descriptionRef = useRef();
@@ -27,6 +28,7 @@ const AddProduct = () => {
   const [sizes, setSizes] = useState([]);
   const [listChecked, setListChecked] = useState([]);
   const [resultReq, setResultReq] = useState();
+  const [addSize, setAddSize] = useState(false);
 
   // toast
   const toastSuccess = () =>
@@ -416,12 +418,21 @@ const AddProduct = () => {
               </select>
             </div>
             <div className="my-2">
-              <label
-                for=""
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Chọn kích cỡ sản phẩm
-              </label>
+              <div className="flex justify-between pb-2">
+                <label
+                  for=""
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Chọn kích cỡ sản phẩm
+                </label>
+                <button
+                  type="button"
+                  className="text-sm underline text-baseColor"
+                  onClick={() => setAddSize(true)}
+                >
+                  Thêm kích cỡ
+                </button>
+              </div>
               <div className="grid grid-cols-6 gap-5">
                 {sizes.map((item, index) => {
                   return (
@@ -429,6 +440,7 @@ const AddProduct = () => {
                       size={item}
                       key={index}
                       handleCheck={handleChange}
+                      setSizes = {setSizes}
                     />
                   );
                 })}
@@ -446,6 +458,7 @@ const AddProduct = () => {
         <LoadingSpinner />
       )}
       {resultReq !== null && <ToastContainer />}
+      {addSize === true && <AddSize setSizes={setSizes} setOpen={setAddSize}/>}
     </LayoutAdmin>
   );
 };

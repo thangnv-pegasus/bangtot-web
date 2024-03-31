@@ -20,6 +20,22 @@ const Cart = () => {
     console.log(data);
   };
 
+  const sumCart = () => {
+    const sum = cart.reduce((pre_total, currentValue) => {
+      if (currentValue.price_sale !== 0) {
+        return (
+          (pre_total + currentValue.price_sale + currentValue.factor) *
+          currentValue.quantity
+        );
+      }
+      return (
+        (pre_total + currentValue.price + currentValue.factor) *
+        currentValue.quantity
+      );
+    }, 0);
+    return sum
+  };
+
   const formatNumber = (num) => {
     const x = Number(num);
 
@@ -48,14 +64,20 @@ const Cart = () => {
                   <div className="py-1 px-2">Thành tiền</div>
                 </div>
                 {cart.map((item, index) => {
-                  return <ProductCart product={item} setCart={setCart} key={item.cart_product_id}/>;
+                  return (
+                    <ProductCart
+                      product={item}
+                      setCart={setCart}
+                      key={item.cart_product_id}
+                    />
+                  );
                 })}
               </div>
               <div className="flex items-end flex-col pt-5">
                 <div className="flex items-center text-lg font-medium">
                   <p className="mr-5">Tổng tiền:</p>{" "}
                   <p className=" text-baseColor">
-                    {formatNumber(10000)}{" "}
+                    {formatNumber(sumCart())}{" "}
                     <sup className="text-sm underline -left-[2px] top-1/2 -translate-y-1/2">
                       đ
                     </sup>{" "}

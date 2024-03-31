@@ -44,9 +44,9 @@ const ProductOrder = ({ product = {} }) => {
       </div>
       <div className="text-base font-medium text-baseColor">
         {product.price_sale == 0 ? (
-          <>{formatNumber(product.price * product.quantity)}</>
+          <>{formatNumber((product.price + product.factor) * product.quantity)}</>
         ) : (
-          <>{formatNumber(product.price_sale * product.quantity)}</>
+          <>{formatNumber((product.price_sale + product.factor) * product.quantity)}</>
         )}
         <sup className="">đ</sup>
       </div>

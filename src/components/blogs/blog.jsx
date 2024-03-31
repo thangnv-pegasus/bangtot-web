@@ -23,13 +23,13 @@ const Blog = ({ blog = {}, classes }) => {
     return date.toLocaleDateString();
   };
   return (
-    <div className="">
+    <div className="w-full">
       <Link
         to=""
         className="w-full h-60 overflow-hidden block group rounded-md shadow-mega_menu"
       >
         <img
-          src={blog.imageUrl || "https://via.placeholder.com/200x120"}
+          src={blog?.imageUrl || "https://via.placeholder.com/200x120"}
           alt=""
           className="w-full h-full object-cover object-center transition-all ease-linear duration-300 group-hover:scale-105"
         />
@@ -43,7 +43,7 @@ const Blog = ({ blog = {}, classes }) => {
           >
             {blog.name || "blog name"}
           </Link>
-          <div className="flex items-center justify-center text-sm relative">
+          <div className="flex items-center flex-wrap justify-center text-sm relative">
             <div className="flex items-center pr-2">
               <span className="mr-1">
                 <IoCalendarOutline />

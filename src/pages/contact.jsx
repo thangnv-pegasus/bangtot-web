@@ -14,9 +14,9 @@ const Contact = () => {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-container">
-        <div className="grid grid-cols-4_6 gap-x-10 py-10">
-          <div>
+      <div className="mx-auto lg:max-w-[1000px] md:max-w-[760px] px-10 max-w-full md:px-0 xl:max-w-container">
+        <div className="grid lg:grid-cols-4_6 md:gap-x-5 lg:gap-x-10 py-10">
+          <div className="order-2 md:order-1">
             <TitlePage
               title="Nơi giải đáp thắc mắc của bạn"
               classes="text-xl font-medium"
@@ -123,7 +123,7 @@ const Contact = () => {
           </div>
 
           {/* gg map */}
-          <div>
+          <div className="order-1">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.880392196023!2d105.7807929747147!3d21.03747128748032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab355cc2239b%3A0x9ae247114fb38da3!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBTxrAgUGjhuqFtIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1709244114561!5m2!1svi!2s"
               className="border-0 h-[700px] w-full"
