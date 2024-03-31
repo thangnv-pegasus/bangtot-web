@@ -1,16 +1,37 @@
 import { IoMdClose } from "react-icons/io";
 import instance from "../../axios/config";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 
 const CreateCollection = ({ setOpen }) => {
   const nameRef = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await instance.post("admin/create-collection", {
-      name: nameRef.current.value,
-    });
+    const { data } = await instance.post(
+      "admin/create-collection",
+      {
+        name: nameRef.current.value,
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+      console.log(data)
+    if (data.status == 200) {
+      showToastSuccess();
+    } else {
+      showToastError();
+    }
+  };
 
-    console.log(data);
+  const showToastSuccess = () => {
+    toast.success("Thêm bộ sưu tập thành công!");
+  };
+
+  const showToastError = () => {
+    toast.error("Thêm bộ sưu tập thất bại!");
   };
 
   return (

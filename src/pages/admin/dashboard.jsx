@@ -169,9 +169,6 @@ const Item = ({ item, setCollections }) => {
     const { data } = await instance.delete(
       `admin/delete-collection/${item.id}`,
       {
-        id: item.id,
-      },
-      {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

@@ -12,7 +12,7 @@ const AddSize = ({ setSizes, setOpen }) => {
       "admin/add-size",
       {
         name: sizeNameRef.current.value,
-        factor: factorRef.current.value,
+        factor: factorRef.current.value || 0,
       },
       {
         headers: {
@@ -21,7 +21,7 @@ const AddSize = ({ setSizes, setOpen }) => {
       }
     );
 
-    console.log(data);
+    // console.log(data);
 
     if (data.status == 200) {
       showToastSuccess();
