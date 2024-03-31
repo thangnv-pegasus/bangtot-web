@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const uploadImage = async (file, folderName = "products") => {
-  let presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_PRODUCTS;
+  let presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_PRODUCTS ?? process.env.VITE_CLOUDINARY_PRESET_NAME_PRODUCTS;
   if (folderName === "blogs") {
-    presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_BLOGS;
+    presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_BLOGS ?? process.env.VITE_CLOUDINARY_PRESET_NAME_BLOGS
   } else if (folderName === "banner") {
-    presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_SLIDER;
+    presetname = import.meta.env.VITE_CLOUDINARY_PRESET_NAME_SLIDER ?? process.env.VITE_CLOUDINARY_PRESET_NAME_SLIDER
   }
-  const apikey = import.meta.env.VITE_CLOUDINARY_API_KEY;
-  const clouname = import.meta.env.VITE_CLOUDINARY_NAME;
+  const apikey = import.meta.env.VITE_CLOUDINARY_API_KEY ?? process.env.VITE_CLOUDINARY_API_KEY
+  const clouname = import.meta.env.VITE_CLOUDINARY_NAME ?? process.env.VITE_CLOUDINARY_NAME
 
   const formData = new FormData();
   formData.append("file", file);
