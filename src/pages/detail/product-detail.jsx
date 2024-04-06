@@ -45,13 +45,11 @@ const ProductDetail = () => {
     setSizes(data.sizes);
     setSelectSize(data.sizes[0]);
     setRelatedProducts(data.related);
-    console.log(data)
+    // console.log(data)
     setLoading(false);
   };
 
-
   const addToCart = async () => {
-    
     if (auth.isLogin === false) {
       navigate("/dang-nhap");
     } else {
@@ -63,7 +61,7 @@ const ProductDetail = () => {
         });
         showToastMessage();
         setShowToast(true);
-        console.log(data)
+        console.log(data);
       } catch (e) {
         console.log(e);
         showToastError();
@@ -71,7 +69,6 @@ const ProductDetail = () => {
       }
     }
   };
-  // console.log(selectSize)
 
   const formatNumber = (num) => {
     const x = Number(num);
@@ -86,8 +83,25 @@ const ProductDetail = () => {
     toast.error("Thêm sản phẩm thất bại!");
   };
 
+  const buyNow = () => {
+    if (auth.isLogin === false) {
+      navigate("/dang-nhap");
+    } else {
+      localStorage.setItem(
+        "temp",
+        JSON.stringify({
+          size: selectSize,
+          quantity,
+          product: product,
+        })
+      );
+      navigate("/mua-ngay");
+    }
+  };
+
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, []);
   return (
     <Layout>
@@ -226,7 +240,10 @@ const ProductDetail = () => {
                         <FaShoppingBasket />
                       </span>
                     </button>
-                    <button className="block px-5 py-3 rounded-md mr-5 border-[1px] border-solid uppercase text-sm font-semibold border-baseColor text-baseColor bg-white transition-all ease-linear duration-200 hover:text-white hover:bg-baseColor">
+                    <button
+                      className="block px-5 py-3 rounded-md mr-5 border-[1px] border-solid uppercase text-sm font-semibold border-baseColor text-baseColor bg-white transition-all ease-linear duration-200 hover:text-white hover:bg-baseColor"
+                      onClick={() => buyNow()}
+                    >
                       Mua ngay
                     </button>
                   </div>

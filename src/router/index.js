@@ -20,6 +20,7 @@ import Bill from "../pages/user/bill";
 import Products from "../pages/products";
 import ProductDetail from "../pages/detail/product-detail";
 import Search from "../pages/search";
+import BuyNow from "../pages/user/buy-now";
 
 const publicRouter = [
   {
@@ -71,6 +72,9 @@ const publicRouter = [
   },{
     path: routers.search,
     component: Search
+  },{
+    path: routers.buynow,
+    component: BuyNow
   }
 ];
 

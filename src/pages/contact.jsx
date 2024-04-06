@@ -5,6 +5,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { GoClock } from "react-icons/go";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { FaRegEnvelope } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
 
 const Contact = () => {
   const nameRef = useRef();
@@ -12,10 +13,19 @@ const Contact = () => {
   const phoneRef = useRef();
   const contentRef = useRef();
 
+  const showToastSuccess = () => {
+    toast.success('Cảm ơn bạn đã đóng góp!')
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    showToastSuccess()
+  }
+
   return (
     <Layout>
       <div className="mx-auto lg:max-w-[1000px] md:max-w-[760px] px-10 max-w-full md:px-0 xl:max-w-container">
-        <div className="grid lg:grid-cols-4_6 md:gap-x-5 lg:gap-x-10 py-10">
+        <div className="grid lg:grid-cols-4_6_2 md:gap-x-5 lg:gap-x-10 py-10">
           <div className="order-2 md:order-1">
             <TitlePage
               title="Nơi giải đáp thắc mắc của bạn"
@@ -78,7 +88,7 @@ const Contact = () => {
               Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng
               tôi sẽ liên lạc lại với bạn sớm nhất có thể .
             </p>
-            <form action="" method="post" className="block text-sm">
+            <form action="" method="post" className="block text-sm" onSubmit={(e) => handleSubmit(e)}>
               <div className="my-4">
                 <input
                   type="text"
@@ -134,6 +144,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </Layout>
   );
 };

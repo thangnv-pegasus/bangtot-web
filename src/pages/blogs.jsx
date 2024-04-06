@@ -31,6 +31,7 @@ const Blogs = () => {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0,0)
   }, []);
 
   return (
@@ -45,9 +46,8 @@ const Blogs = () => {
               {blogs.map((item, index) => {
                 return <Blog blog={item} key={index} />;
               })}
-              <Blog />
             </div>
-            <Pagination currentPage={page} lastPage={lastPage}/>
+            {lastPage > 1 && <Pagination currentPage={page} lastPage={lastPage}/>}
           </div>
         )}
       </div>

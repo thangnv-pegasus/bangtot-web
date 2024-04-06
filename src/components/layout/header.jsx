@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { OPEN_SEARCH } from "../../redux/slices/search-modal-slice";
 import instance from "../../axios/config";
 import { useEffect, useState } from "react";
+import logo from '../../logo/logo.png'
 import {
   SET_ACTIVE_USER,
   SET_REMOVE_USER,
@@ -83,9 +84,9 @@ const Header = ({ searchModal = false }) => {
       <div className="md:max-w-[760px] max-w-full px-10 md:px-0 lg:max-w-[1000px] xl:max-w-container mx-auto flex items-center">
         <NavLink
           to={routers.home}
-          className={({ isActive }) => checkActive(isActive) + " block lg:w-60 sm:w-40"}
+          className={({ isActive }) => checkActive(isActive) + " block lg:w-60 sm:w-40 h-20"}
         >
-          <img src="https://via.placeholder.com/240x50" alt="logo" />
+          <img src={logo} alt="Bàn ghế hoa mai" className="block w-full h-full object-cover object-center"/>
         </NavLink>
         <div className="flex-1 flex items-center justify-center font-medium lg:text-base text-sm py-4">
           <NavLink

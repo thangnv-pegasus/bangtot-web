@@ -21,7 +21,8 @@ const routers = {
     cart: '/gio-hang',
     order: '/thong-tin-dat-hang',
     bill: '/hoa-don',
-    search: '/search/:value'
+    search: '/search/:value',
+    buynow: '/mua-ngay'
 }
 
 export default routers

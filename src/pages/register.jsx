@@ -53,6 +53,9 @@ const Register = () => {
     toast.error("Đăng kí tài khoản thất bại!");
   };
 
+  useEffect(() => {
+    window.scrollTo(0,0)
+  },[])
   return (
     <Layout>
       <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">

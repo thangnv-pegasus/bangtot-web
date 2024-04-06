@@ -19,7 +19,7 @@ const Product = ({
     if(type === 'product'){
       return `/chi-tiet-san-pham/${product.id}`
     }
-    return `/bo-suu-tap?id=${collection.id}`
+    return `#`
   }
 
   const fetchImage = async () => {
@@ -47,6 +47,7 @@ const Product = ({
     } else {
       fetchDataCollection();
     }
+    window.scrollTo(0, 0)
   }, []);
   return (
     <div>

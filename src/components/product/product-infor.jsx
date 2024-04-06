@@ -50,7 +50,7 @@ const ProductInfor = ({
             />
           </div>
           <Link
-            to={routers.productForm}
+            to={`/chi-tiet-san-pham/${idProduct}`}
             className="block ml-4 text-base hover:text-baseColor font-medium"
           >
             {name}

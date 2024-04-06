@@ -28,9 +28,8 @@ const Products = () => {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, []);
-
-  console.log(data);
 
   return (
     <Layout>
@@ -54,6 +53,9 @@ const Products = () => {
                 <Pagination
                   currentPage={page.current_page}
                   lastPage={page.last_page}
+                  setData={setData}
+                  setPage={setPage}
+                  setProducts={setProducts}
                 />
               </div>
             )}

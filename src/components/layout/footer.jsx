@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import SocialItem from "./social-item";
+import logo from '../../logo/logo.png'
 
 const socials = [
   {
@@ -32,7 +33,9 @@ const Footer = () => {
       <div className="md:max-w-[760px] px-10 md:px-0 max-w-full lg:max-w-[1000px] xl:max-w-container mx-auto py-8">
         <div className="grid xl:grid-cols-4 xl:gap-3 grid-cols-2 md:gap-4 gap-2">
           <div>
-            <h1 className="text-lg uppercase font-semibold mb-2">Bảng Đẹp</h1>
+            <h1 className="text-lg uppercase font-semibold mb-2 w-60 h-20">
+              <img src={logo} alt="Bàn ghế hoa mai" className="w-full h-full object-cover object-center"/>
+            </h1>
             <ul className="text-sm">
               <li className="py-1 my-1">
                 Với sứ mệnh "Khách hàng là ưu tiên số 1" chúng tôi luôn mạng lại
@@ -62,10 +65,10 @@ const Footer = () => {
                 </span>
                 Email:{" "}
                 <a
-                  href="mailto: bangdep@gmail.com"
+                  href="mailto: banghehoamai@gmail.com"
                   className="transition-all ease-linear hover:text-baseColor"
                 >
-                  bangdep@gmail.com
+                  banghehoamai@gmail.com
                 </a>
               </li>
               <li className="py-1 my-1 flex items-center">

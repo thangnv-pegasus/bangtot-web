@@ -1,8 +1,23 @@
-const Pagination = ({ currentPage = 1, lastPage = 1 }) => {
+import instance from "../../axios/config";
+
+const Pagination = ({
+  currentPage = 1,
+  lastPage = 1,
+  setData,
+  setPage,
+  setProducts,
+}) => {
   const page = [];
   for (let i = 1; i <= lastPage; i++) {
     page[i - 1] = i;
   }
+
+  const fetchData = async (page) => {
+    const { data } = await instance.get(`products?page=${page}`);
+    setProducts(data.products.data);
+    setData(data.products.data);
+    console.log(data)
+  };
   return (
     <>
       <nav aria-label="Page navigation example">
@@ -20,7 +35,18 @@ const Pagination = ({ currentPage = 1, lastPage = 1 }) => {
             return (
               <li key={index}>
                 <button
-                  className={`relative block rounded px-3 py-1.5 mx-2 text-base transition-all duration-300 ${item === currentPage ? 'bg-baseColor text-white hover:bg-baseBg' : 'bg-transparent text-neutral-600 hover:bg-neutral-100'}`}
+                  className={`relative block rounded px-3 py-1.5 mx-2 text-base transition-all duration-300 ${
+                    item === currentPage
+                      ? "bg-baseColor text-white hover:bg-baseBg"
+                      : "bg-transparent text-neutral-600 hover:bg-neutral-100"
+                  }`}
+                  onClick={() => {
+                    setPage((pre) => ({
+                      ...pre,
+                      current_page: item,
+                    }));
+                    fetchData(item);
+                  }}
                 >
                   {item}
                 </button>

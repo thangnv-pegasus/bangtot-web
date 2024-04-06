@@ -8,8 +8,8 @@ import routers from "../../config/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "../../components/loading/spinner";
-const Order = () => {
-  const [cart, setCart] = useState([]);
+const BuyNow = () => {
+  const [product, setProduct] = useState({});
   const navigate = useNavigate();
   const nameRef = useRef();
   const addressRef = useRef();
@@ -17,33 +17,15 @@ const Order = () => {
   const emailRef = useRef();
   const noteRef = useRef();
   const [loading, setLoading] = useState(false);
+  const temp = JSON.parse(localStorage.getItem("temp"));
+  const formatNumber = (num) => {
+    const x = Number(num);
 
-  const fetchData = async () => {
-    const { data } = await instance.get("user/cart", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-
-    setCart(data.cart);
-    // console.log(data);
+    return x.toLocaleString();
   };
-
-  const total = (arr) => {
-    const result = arr.reduce((pre_total, currentValue) => {
-      if (currentValue.price_sale == 0) {
-        return (
-          (pre_total + currentValue.price + currentValue.factor) *
-          currentValue.quantity
-        );
-      }
-      return (
-        (pre_total + currentValue.price_sale + currentValue.factor) *
-        currentValue.quantity
-      );
-    }, 0);
-
-    return result.toLocaleString();
+  const fetchData = async () => {
+    const { data } = await instance.get(`product/${temp.product.id}`);
+    setProduct(data.product[0]);
   };
 
   const showToastWarning = () => {
@@ -171,28 +153,45 @@ const Order = () => {
                 title="Đơn hàng của bạn"
                 classes="text-lg font-medium select-none"
               />
-              {cart.length > 0 && (
-                <div className="md:pt-5 pt-10">
-                  <div className="max-h-96 overflow-y-auto">
-                    {cart.map((item, index) => {
-                      return <ProductOrder product={item} key={index} />;
-                    })}
-                  </div>
-                  <div className="flex items-center justify-between py-2 mt-4 font-medium">
-                    <p>Tổng tiền thanh toán:</p>
-                    <p className="text-baseColor">
-                      {total(cart)}{" "}
-                      <sup className="top-1/2 -left-[2px] underline">đ</sup>{" "}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleOrder()}
-                    className="block w-full mt-2 text-white font-meidum uppercase bg-baseColor text-center rounded-md py-2 transition-all ease-linear hover:bg-baseBg"
-                  >
-                    Đặt hàng
-                  </button>
+              <div className="md:pt-5 pt-10">
+                <div className="max-h-96 overflow-y-auto">
+                  <ProductOrder
+                    product={product}
+                    key={product.id}
+                    quantity={temp.quantity}
+                    size={temp.size}
+                  />
                 </div>
-              )}
+                <div className="flex items-center justify-between py-2 mt-4 font-medium">
+                  <p>Tổng tiền thanh toán:</p>
+                  <p className="text-baseColor">
+                    {product.price_sale == 0 ? (
+                      <>
+                        {formatNumber(
+                          (product.price +
+                            (product.factor || temp.size.factor)) *
+                            (product.quantity || temp.quantity)
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {formatNumber(
+                          (product.price_sale +
+                            (product.factor || temp.size.factor)) *
+                            (product.quantity || temp.quantity)
+                        )}
+                      </>
+                    )}
+                    <sup className="top-1/2 -left-[2px] underline">đ</sup>{" "}
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleOrder()}
+                  className="block w-full mt-2 text-white font-meidum uppercase bg-baseColor text-center rounded-md py-2 transition-all ease-linear hover:bg-baseBg"
+                >
+                  Đặt hàng
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -203,4 +202,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default BuyNow;

@@ -116,7 +116,8 @@ export default {
       },
       gridTemplateColumns: {
         'row_user_table': '1fr 2fr 2fr 2fr 2fr 1fr 2fr',
-        '4_6': '4fr 6fr',
+        '4_6': '1fr 2fr',
+        '4_6_2': '4fr 6fr',
         '6_4': '6fr 4fr',
         '3_1_2_1': '3fr 1fr 2fr 1fr',
         '3_1_2_1': '3fr 1fr 2fr 1fr',
