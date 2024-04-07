@@ -4,6 +4,7 @@ import instance from "../../axios/config";
 import ProductOrder from "../../components/product/product-order";
 import { Link } from "react-router-dom";
 import routers from "../../config/router";
+import logo from '../../logo/logo.png'
 
 const Bill = () => {
   const [order, setOrder] = useState({});
@@ -17,7 +18,7 @@ const Bill = () => {
     });
 
     const { order_infor, products } = data;
-    console.log(data);
+    // console.log(data);
     setOrder(order_infor);
     setProducts(products);
   };
@@ -40,11 +41,11 @@ const Bill = () => {
   return (
     <div className="bg-[#e6e8ea] w-full h-screen flex items-center justify-center">
       <div className="w-4/5">
-        <div className="block text-center pb-10">
+        <div className="block text-center pb-10 w-60 h-36 mx-auto">
           <img
-            src="https://via.placeholder.com/240x50"
+            src={logo}
             alt="logo"
-            className="mx-auto"
+            className="mx-auto w-full h-full object-cover object-center"
           />
         </div>
         <div className="grid lg:grid-cols-6_4 grid-cols-1 py-5 gap-x-5 lg:gap-x-10">

@@ -43,13 +43,16 @@ const BuyNow = () => {
     } else {
       setLoading(true);
       const { data } = await instance.post(
-        "user/order",
+        "user/buy-now",
         {
           username: nameRef.current.value,
           address: addressRef.current.value,
           phone: phoneRef.current.value,
           email: emailRef.current.value,
           note: noteRef.current.value,
+          productId: temp.product.id,
+          quantity: temp.quantity,
+          idSize: temp.size.idSize
         },
         {
           headers: {
@@ -57,7 +60,6 @@ const BuyNow = () => {
           },
         }
       );
-      // console.log(data);
       nameRef.current.value = "";
       addressRef.current.value = "";
       phoneRef.current.value = "";
@@ -65,6 +67,9 @@ const BuyNow = () => {
       noteRef.current.value = "";
       setLoading(false);
       navigate("/hoa-don");
+      if(data.status === 200){
+        localStorage.removeItem('temp')
+      }
     }
   };
 
