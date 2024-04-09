@@ -33,8 +33,8 @@ const Footer = () => {
       <div className="md:max-w-[760px] px-10 md:px-0 max-w-full lg:max-w-[1000px] xl:max-w-container mx-auto py-8">
         <div className="grid xl:grid-cols-4 xl:gap-3 grid-cols-2 md:gap-4 gap-2">
           <div>
-            <h1 className="text-lg uppercase font-semibold mb-2 w-60 h-20">
-              <img src={logo} alt="Bàn ghế hoa mai" className="w-full h-full object-cover object-center"/>
+            <h1 className="text-lg uppercase font-semibold">
+              Bàn ghế hoa mai
             </h1>
             <ul className="text-sm">
               <li className="py-1 my-1">

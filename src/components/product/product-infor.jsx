@@ -3,8 +3,9 @@ import routers from "../../config/router";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import instance from "../../axios/config";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import UpdateProduct from "../modal/update-product";
 
 const ProductInfor = ({
   name = "",
@@ -15,6 +16,7 @@ const ProductInfor = ({
   setProducts,
   setImages,
 }) => {
+  const [open, setOpen] = useState(false);
   const formatNumber = (num = 10) => {
     return num.toLocaleString() || num;
   };
@@ -58,7 +60,11 @@ const ProductInfor = ({
         </div>
         <div>
           <div className="flex items-center justify-end">
-            <button title="Sửa thông tin" className="p-2 ml-2">
+            <button
+              title="Sửa thông tin"
+              className="p-2 ml-2"
+              onClick={() => setOpen(true)}
+            >
               <FontAwesomeIcon icon={faPenToSquare} />
             </button>
             <button
@@ -90,6 +96,14 @@ const ProductInfor = ({
           </div>
         </div>
       </div>
+      {open === true && (
+        <UpdateProduct
+          setOpen={setOpen}
+          idProduct={idProduct}
+          setProducts={setProducts}
+          key={idProduct}
+        />
+      )}
       <ToastContainer />
     </>
   );

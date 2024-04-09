@@ -6,6 +6,8 @@ const Pagination = ({
   setData,
   setPage,
   setProducts,
+  setBlogs,
+  type = "products",
 }) => {
   const page = [];
   for (let i = 1; i <= lastPage; i++) {
@@ -13,10 +15,19 @@ const Pagination = ({
   }
 
   const fetchData = async (page) => {
-    const { data } = await instance.get(`products?page=${page}`);
-    setProducts(data.products.data);
-    setData(data.products.data);
-    console.log(data)
+    if (type === "products") {
+      const { data } = await instance.get(`products?page=${page}`);
+      setProducts(data.products.data);
+      if (setData) {
+        setData(data.products.data);
+      }
+    }else if(type === 'blogs'){
+      const { data } = await instance.get(`blogs?page=${page.current_page}`, {
+        method: "get",
+      });
+      setBlogs(data.blogs.data);
+    }
+    // console.log(data)
   };
   return (
     <>

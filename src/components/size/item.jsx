@@ -1,7 +1,12 @@
 import { BsTrash3 } from "react-icons/bs";
 import instance from "../../axios/config";
 
-const SizeItem = ({ size = {},setSizes, handleCheck = () => {} }) => {
+const SizeItem = ({
+  size = {},
+  setSizes,
+  handleCheck = () => {},
+  check = false,
+}) => {
   const handleDelete = async () => {
     const { data } = await instance.delete(`admin/delete-size/${size.id}`, {
       headers: {
@@ -9,8 +14,8 @@ const SizeItem = ({ size = {},setSizes, handleCheck = () => {} }) => {
       },
     });
 
-    if(data.status === 200){
-      setSizes(data.sizes)
+    if (data.status === 200) {
+      setSizes(data.sizes);
     }
     // console.log(data)
   };
@@ -23,11 +28,17 @@ const SizeItem = ({ size = {},setSizes, handleCheck = () => {} }) => {
         id={size.id}
         value={size.name}
         onChange={(e) => handleCheck(e)}
+        defaultChecked={check}
       />
       <label htmlFor={size.id} className="mx-2 select-none cursor-pointer">
         {size.name}
       </label>
-      <button type="button" className="bg-red-600 p-1 rounded-sm" title="Xóa" onClick={() => handleDelete()}>
+      <button
+        type="button"
+        className="bg-red-600 p-1 rounded-sm"
+        title="Xóa"
+        onClick={() => handleDelete()}
+      >
         <BsTrash3 className="text-white" />
       </button>
     </div>

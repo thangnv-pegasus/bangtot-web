@@ -56,6 +56,7 @@ const Product = ({
           <Link
             to={setPath(type)}
             className="block rounded-sm overflow-hidden w-full group"
+            onClick={() => window.scrollTo(0,0)}
           >
             <div className="w-full h-48 relative overflow-hidden">
               <img

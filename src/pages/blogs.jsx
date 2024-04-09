@@ -10,28 +10,33 @@ import Pagination from "../components/pagination";
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1)
-  const [lastPage, setLastPage] = useState(1)
+  const [page, setPage] = useState({
+    current_page: 1,
+    last_page: 1,
+  });
   const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data } = await instance.get(`blogs?page=${page}`, {
+      const { data } = await instance.get(`blogs?page=${page.current_page}`, {
         method: "get",
       });
-      setLastPage(data.blogs.last_page)
       setBlogs(data.blogs.data);
+      setPage({
+        current_page: data.blogs.current_page,
+        last_page: data.blogs.last_page,
+      });
       setLoading(false);
     } catch (e) {
       console.log(e);
       // navigate('/')
-    } 
+    }
   };
 
   useEffect(() => {
     fetchData();
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -47,7 +52,15 @@ const Blogs = () => {
                 return <Blog blog={item} key={index} />;
               })}
             </div>
-            {lastPage > 1 && <Pagination currentPage={page} lastPage={lastPage}/>}
+            {page.last_page > 1 && (
+              <Pagination
+                currentPage={page.current_page}
+                lastPage={page.last_page}
+                setBlogs={setBlogs}
+                setPage={setPage}
+                type="blogs"
+              />
+            )}
           </div>
         )}
       </div>
