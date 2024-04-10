@@ -6,7 +6,7 @@ import { GoClock } from "react-icons/go";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { FaRegEnvelope } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
-
+import {Helmet} from "react-helmet";
 const Contact = () => {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -14,16 +14,21 @@ const Contact = () => {
   const contentRef = useRef();
 
   const showToastSuccess = () => {
-    toast.success('Cảm ơn bạn đã đóng góp!')
-  }
+    toast.success("Cảm ơn bạn đã đóng góp!");
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    showToastSuccess()
-  }
+    e.preventDefault();
+    showToastSuccess();
+  };
 
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Liên hệ với chúng tôi</title>
+        <meta name="description" content="Liên hệ với chúng tôi" />
+      </Helmet>
       <div className="mx-auto lg:max-w-[1000px] md:max-w-[760px] px-10 max-w-full md:px-0 xl:max-w-container">
         <div className="grid lg:grid-cols-4_6_2 md:gap-x-5 lg:gap-x-10 py-10">
           <div className="order-2 md:order-1">
@@ -88,7 +93,12 @@ const Contact = () => {
               Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng
               tôi sẽ liên lạc lại với bạn sớm nhất có thể .
             </p>
-            <form action="" method="post" className="block text-sm" onSubmit={(e) => handleSubmit(e)}>
+            <form
+              action=""
+              method="post"
+              className="block text-sm"
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <div className="my-4">
                 <input
                   type="text"
@@ -128,7 +138,12 @@ const Contact = () => {
                   ref={contentRef}
                 />
               </div>
-              <button type="submit" className="bg-baseColor text-white px-4 py-2 rounded-md transition-all ease-linear hover:bg-baseBg">Gửi thông tin</button>
+              <button
+                type="submit"
+                className="bg-baseColor text-white px-4 py-2 rounded-md transition-all ease-linear hover:bg-baseBg"
+              >
+                Gửi thông tin
+              </button>
             </form>
           </div>
 

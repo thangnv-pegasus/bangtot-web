@@ -1,17 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../redux/slices/counter-slice";
 import Layout from "../components/layout";
 import Banner from "../components/slider-banner";
 import Service from "../components/service/service-scroll";
-import Search from "../components/modal/search";
-import Title from "../components/title";
 import { useEffect, useState } from "react";
 import Collections from "../components/collections";
 import Collection from "../components/collections/feature-collection";
 import Blogs from "../components/blogs";
 import instance from "../axios/config";
-import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
-
+import {Helmet} from "react-helmet";
 const Home = () => {
   const [url, setUrl] = useState(
     localStorage.getItem("token") ? "/user/home" : "/home"
@@ -32,18 +28,22 @@ const Home = () => {
         },
       });
       const { collections } = data;
-      // console.log(collections)
       setCollections(collections);
     } catch (error) {}
   }
 
   useEffect(() => {
     fetchData();
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Trang chủ</title>
+        <meta name="description" content="Trang chủ" />
+      </Helmet>
       <Layout>
         {/* banner slider */}
         <Banner />
@@ -57,13 +57,14 @@ const Home = () => {
 
         {collections.length > 0 &&
           collections.map((item, index) => {
-            if(index < 6){
+            if (index < 6) {
               return (
                 <Collection
                   showLink={true}
                   title={item.name}
                   path={`/bo-suu-tap/${item.id}`}
                   collection_id={item.id}
+                  key={index}
                 />
               );
             }

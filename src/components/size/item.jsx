@@ -17,7 +17,6 @@ const SizeItem = ({
     if (data.status === 200) {
       setSizes(data.sizes);
     }
-    // console.log(data)
   };
 
   return (

@@ -14,7 +14,6 @@ const ManageBlogs = () => {
         method: "get",
       }); 
       setBlogs(data.blogs.data); 
-      console.log(data)
     } catch (e) {
       console.log(e);
     }

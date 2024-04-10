@@ -21,8 +21,6 @@ const AddSize = ({ setSizes, setOpen }) => {
       }
     );
 
-    // console.log(data);
-
     if (data.status == 200) {
       showToastSuccess();
       setSizes(data.sizes)

@@ -6,13 +6,18 @@ import about2 from "../logo/about2.png";
 import about3 from "../logo/about3.png";
 import about4 from "../logo/about4.jpg";
 import about5 from "../logo/about5.jpg";
-
+import {Helmet} from "react-helmet";
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
     <Layout>
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Về chúng tôi</title>
+                <meta name="description" content="Giới thiệu về chúng tôi" />
+            </Helmet>
       <div className="lg:max-w-[1000px] md:max-w-[760px] px-10 max-w-full md:px-0 xl:max-w-container mx-auto">
         <TitlePage
           title="Chào mừng đến với bàn ghế hoa mai"

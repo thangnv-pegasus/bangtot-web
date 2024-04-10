@@ -15,53 +15,14 @@ const SideBar = ({ setData, products = [] }) => {
     const { data } = await instance.get("show-collection");
 
     setCollections(data.collections);
-    // console.log(data);
   };
 
   const filteredProduct = products.filter((item) => {
-    // let passesPriceCheck = false;
-    // if (filter.filterPrice === "0-1m" && item.price < 1000000) {
-    //   passesPriceCheck = true;
-    // } else if (
-    //   filter.filterPrice === "1m-2m" &&
-    //   item.price > 1000000 &&
-    //   item.price <= 2000000
-    // ) {
-    //   passesPriceCheck = true;
-    // } else if (
-    //   filter.filterPrice === "2m-3m" &&
-    //   item.price > 2000000 &&
-    //   item.price <= 3000000
-    // ) {
-    //   passesPriceCheck = true;
-    // } else if (
-    //   filter.filterPrice === "3m-5m" &&
-    //   item.price > 3000000 &&
-    //   item.price <= 5000000
-    // ) {
-    //   passesPriceCheck = true;
-    // } else if (
-    //   filter.filterPrice === "5m-10m" &&
-    //   item.price > 5000000 &&
-    //   item.price <= 10000000
-    // ) {
-    //   passesPriceCheck = true;
-    // } else if (
-    //   filter.filterPrice === "10m-20m" &&
-    //   item.price > 10000000 &&
-    //   item.price <= 20000000
-    // ) {
-    //   passesPriceCheck = true;
-    // } else if (filter.filterPrice === "max" && item.price > 20000000) {
-    //   passesPriceCheck = true;
-    // }
-
     return (
       (!filter.filterCollection ||
         filter.filterCollection == item.collection_id) 
     );
   });
-  console.log(filter);
 
   useEffect(() => {
     fetchData();

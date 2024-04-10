@@ -28,7 +28,6 @@ const ManageProduct = () => {
       current_page: data.products.current_page,
       last_page: data.products.last_page,
     });
-    // console.log(data);
   };
 
   const urlImage = (productId) => {

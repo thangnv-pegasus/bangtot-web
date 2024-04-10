@@ -26,7 +26,6 @@ const Order = () => {
     });
 
     setCart(data.cart);
-    // console.log(data);
   };
 
   const total = (arr) => {
@@ -75,7 +74,6 @@ const Order = () => {
           },
         }
       );
-      // console.log(data);
       nameRef.current.value = "";
       addressRef.current.value = "";
       phoneRef.current.value = "";

@@ -26,14 +26,11 @@ const ManageOrder = () => {
     const { orders, products } = data;
     setOrders(orders);
     setProducts(products);
-    console.log(data.orders);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  // console.log(filter);
 
   const getYear = (str) => {
     const dt = new Date(str);
@@ -50,9 +47,7 @@ const ManageOrder = () => {
     return dt.getDay();
   };
   const handleFilter = () => {
-    // console.log(filter)
     const newOrder = orders.filter((od) => {
-      // console.log(od)
       return (
         (!filter.day || filter.day == getDay(od.created_at)) &&
         (!filter.month || filter.month == getMonth(od.created_at)) &&
@@ -60,8 +55,6 @@ const ManageOrder = () => {
         (!filter.status || filter.status == od.status)
       );
     });
-    console.log(newOrder);
-
     setOrders(newOrder);
   };
   useEffect(() => {
@@ -121,7 +114,6 @@ const ManageOrder = () => {
 const RowOrder = ({ products = [], order = {}, setOrders }) => {
   const getSum = (init = 0) => {
     const product = products.filter((prod) => prod.idOrder === order.id);
-    // console.log(product);
     const sum = product.reduce((pre_total, current) => {
       if (current.price_sale != 0) {
         return pre_total + (current.price_sale + current.factor) * current.quantity;
@@ -146,7 +138,6 @@ const RowOrder = ({ products = [], order = {}, setOrders }) => {
       }
     );
     setOrders(data.order);
-    console.log(data);
   };
   const formatDate = (str) => {
     const date = new Date(str);

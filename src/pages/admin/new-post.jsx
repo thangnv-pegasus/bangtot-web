@@ -47,7 +47,6 @@ const NewPost = () => {
           },
         }
       );
-      // console.log(data);
       titleRef.current.value = "";
       contentRef.current.value = "";
       fileRef.current.file = ""

@@ -4,12 +4,10 @@ import instance from "../../axios/config";
 import { useEffect, useState } from "react";
 import LoadingDots from "../../components/loading/dot";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "../../custom-css/banner-slider.css";
-// import required modules
 import { Navigation } from "swiper/modules";
 import { FaPlus } from "react-icons/fa";
 import { TiMinus } from "react-icons/ti";
@@ -20,6 +18,8 @@ import Product from "../../components/product";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
+
 const ProductDetail = () => {
   const { id } = useParams();
 
@@ -45,7 +45,6 @@ const ProductDetail = () => {
     setSizes(data.sizes);
     setSelectSize(data.sizes[0]);
     setRelatedProducts(data.related);
-    // console.log(data)
     setLoading(false);
   };
 
@@ -61,7 +60,6 @@ const ProductDetail = () => {
         });
         showToastMessage();
         setShowToast(true);
-        console.log(data);
       } catch (e) {
         console.log(e);
         showToastError();
@@ -106,6 +104,14 @@ const ProductDetail = () => {
   return (
     <Layout>
       <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Chi tiết sản phẩm</title>
+          <meta
+            name="description"
+            content={`Thông tin chi tiết sản phẩm`}
+          />
+        </Helmet>
         <div className="py-10">
           {loading === true ? (
             <>

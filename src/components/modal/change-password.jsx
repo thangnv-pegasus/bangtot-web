@@ -33,7 +33,6 @@ const ChangePassword = () => {
     );
 
     if (data.status == 200) {
-      // console.log(data)
       currentPassRef.current.value = "";
       newPassRef.current.value = "";
       confirmRef.current.value = "";

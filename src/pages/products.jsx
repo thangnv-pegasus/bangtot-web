@@ -5,6 +5,7 @@ import instance from "../axios/config";
 import Product from "../components/product";
 import Pagination from "../components/pagination";
 import SideBar from "../components/nav-bar/side-bar";
+import { Helmet } from "react-helmet";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState({
@@ -33,6 +34,11 @@ const Products = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Tất cả sản phẩm</title>
+        <meta name="description" content="Tất cả sản phẩm" />
+      </Helmet>
       <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         <div className="py-10 grid grid-cols-3_9 xl:gap-x-10 lg:gap-x-8 md:gap-x-5 gap-x-5">
           <div>

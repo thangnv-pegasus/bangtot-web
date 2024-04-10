@@ -19,7 +19,6 @@ const Collections = () => {
 
     setCollections(data.collections);
     setLoading(false);
-    // console.log(collections);
   };
 
   useEffect(() => {

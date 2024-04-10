@@ -19,7 +19,6 @@ const Cart = () => {
       },
     });
     setCart(data.cart);
-    console.log(data);
   };
 
   const sumProduct = () => {

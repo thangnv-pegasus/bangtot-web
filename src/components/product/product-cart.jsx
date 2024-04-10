@@ -13,7 +13,6 @@ const ProductCart = ({ product = {}, setCart }) => {
     const { data } = await instance.get(`image-product/${product.id}`);
 
     setImage(data.image);
-    console.log(data);
   };
 
   const formatNumber = (num) => {
@@ -48,7 +47,6 @@ const ProductCart = ({ product = {}, setCart }) => {
         },
       }
     );
-    console.log(data);
     setCart(data.cart)
   };
 

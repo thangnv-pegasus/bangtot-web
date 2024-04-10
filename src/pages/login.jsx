@@ -1,24 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
 import routers from "../config/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import instance from "../axios/config";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ACTIVE_TOAST_ERROR,
   ACTIVE_TOAST_SUCCESS,
-  CLOSE_TOAST,
 } from "../redux/slices/toast-slice";
 import { SET_ACTIVE_USER } from "../redux/slices/auth-slice";
-
+import { Helmet } from "react-helmet";
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
-  const message = useSelector((state) => state.toast);
   const dispath = useDispatch();
   const naigate = useNavigate();
-  const auth = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,19 +40,20 @@ const Login = () => {
       );
       localStorage.setItem("token", res.data.token_type + " " + res.data.token);
       localStorage.setItem("admin", "true");
-      const closeToast = setTimeout(() => {
-        dispath(CLOSE_TOAST());
-      }, 3000);
-      clearTimeout(closeToast);
     }
   };
 
   useEffect(() => {
-    window.scrollTo(0,0)
-  },[])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Đăng nhập</title>
+        <meta name="description" content="Đăng nhập" />
+      </Helmet>
       <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         <div className="py-10">
           <h1 className="text-center uppercase font-semibold text-2xl pb-4">

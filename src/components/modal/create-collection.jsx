@@ -18,7 +18,6 @@ const CreateCollection = ({ setOpen }) => {
         },
       }
     );
-      console.log(data)
     if (data.status == 200) {
       showToastSuccess();
     } else {

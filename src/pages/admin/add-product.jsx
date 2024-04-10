@@ -76,7 +76,6 @@ const AddProduct = () => {
         sizes: listChecked,
         image: arr,
       };
-      // console.log(prodReqest)
       const { data } = await instance.post("admin/create-product", prodReqest, {
         method: "post",
         headers: {

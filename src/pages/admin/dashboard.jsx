@@ -25,8 +25,6 @@ const Dashboard = () => {
         Authorization: localStorage.getItem("token"),
       },
     });
-    console.log(data);
-
     setHotlines(data.phone);
     setBanner(data.banner);
     setCollections(data.collections);
@@ -41,8 +39,6 @@ const Dashboard = () => {
         "Access-Control-Allow-Origin": "*",
       },
     });
-    console.log(data);
-
     if (data.status == 200) {
       setBanner(data.banner);
     }
@@ -177,7 +173,6 @@ const Item = ({ item, setCollections }) => {
     if (data.status == 200) {
       setCollections(data.collections);
     }
-    console.log(data)
   };
 
   return (

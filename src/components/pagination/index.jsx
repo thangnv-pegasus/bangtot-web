@@ -27,7 +27,6 @@ const Pagination = ({
       });
       setBlogs(data.blogs.data);
     }
-    // console.log(data)
   };
   return (
     <>

@@ -18,7 +18,6 @@ const Bill = () => {
     });
 
     const { order_infor, products } = data;
-    // console.log(data);
     setOrder(order_infor);
     setProducts(products);
   };
@@ -98,7 +97,6 @@ const Bill = () => {
             </h2>
             <div className="max-h-96 overflow-y-auto px-4 my-2">
               {products.map((item, index) => {
-                console.log(item);
                 return <ProductOrder product={item} key={index} />;
               })}
             </div>

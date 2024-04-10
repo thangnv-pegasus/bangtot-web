@@ -6,7 +6,7 @@ import TitlePage from "../components/page-title";
 import Blog from "../components/blogs/blog";
 import LoadingSpinner from "../components/loading/spinner";
 import Pagination from "../components/pagination";
-
+import { Helmet } from "react-helmet";
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -41,6 +41,11 @@ const Blogs = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Tin tức</title>
+        <meta name="description" content="Trang tin tức" />
+      </Helmet>
       <div className="lg:max-w-[1000px] md:max-w-[760px] max-w-full px-10 md:px-0 xl:max-w-container mx-auto">
         {loading === true ? (
           <LoadingSpinner />

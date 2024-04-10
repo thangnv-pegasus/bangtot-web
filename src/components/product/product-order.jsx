@@ -9,7 +9,6 @@ const ProductOrder = ({ product = {}, quantity = 1, size = {} }) => {
     try {
       const { data } = await instance.get(`image-product/${product.id}`);
       setImage(data.image);
-      console.log(data);
     } catch (e) {
       console.log(e);
     }
