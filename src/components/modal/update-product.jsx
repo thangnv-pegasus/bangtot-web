@@ -5,6 +5,7 @@ import instance from "../../axios/config";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import uploadImage from "../../upload";
+import { ToastContainer, toast } from "react-toastify";
 
 const UpdateProduct = ({ setOpen, idProduct = 1, setProducts }) => {
   const descriptionRef = useRef();
@@ -21,7 +22,6 @@ const UpdateProduct = ({ setOpen, idProduct = 1, setProducts }) => {
   const [sizes, setSizes] = useState([]);
   const [listChecked, setListChecked] = useState([]);
   const [sizeProduct, setSizeProduct] = useState([]);
-  console.log(listChecked)
 
   const fetchData = async () => {
     const { data } = await instance.get(`admin/update-data/${idProduct}`, {
@@ -62,35 +62,48 @@ const UpdateProduct = ({ setOpen, idProduct = 1, setProducts }) => {
     });
     return check;
   };
-
+  const showToastSuccess = () => {
+    toast.success("Sửa sản phẩm thành công!");
+  };
+  const showToastWarning = () => {
+    toast.warning("Sửa sản phẩm thành công!");
+  };
   const updateProduct = async (e) => {
     e.preventDefault();
-    const images = imageRef.current.files;
-    let arr = [];
-    for (let i = 0; i < images.length; i++) {
-      const data = await uploadImage(images[i]);
-      arr.push(data);
-    }
-    const { data } = await instance.patch(
-      `admin/update-product/${idProduct}`,
-      {
-        name: nameRef.current.value,
-        description: descriptionRef.current.value,
-        detail: detailRef.current.value,
-        price: priceRef.current.value,
-        price_sale: pricesaleRef.current.value,
-        sizes: listChecked,
-        collectionId: collectionRef.current.value,
-        image: arr,
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
+    try {
+      const images = imageRef.current.files;
+      let arr = [];
+      for (let i = 0; i < images.length; i++) {
+        const data = await uploadImage(images[i]);
+        arr.push(data);
       }
-    );
-
-    setProducts(data.products.data)
+      const { data } = await instance.patch(
+        `admin/update-product/${idProduct}`,
+        {
+          name: nameRef.current.value,
+          description: descriptionRef.current.value,
+          detail: detailRef.current.value,
+          price: priceRef.current.value,
+          price_sale: pricesaleRef.current.value,
+          sizes: listChecked,
+          collectionId: collectionRef.current.value,
+          image: arr,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      if (data.status === 200) {
+        setProducts(data.products.data);
+        showToastSuccess();
+      } else {
+        showToastWarning();
+      }
+    } catch (e) {
+      showToastWarning();
+    }
   };
 
   useEffect(() => {
@@ -439,6 +452,7 @@ const UpdateProduct = ({ setOpen, idProduct = 1, setProducts }) => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
