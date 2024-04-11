@@ -36,9 +36,7 @@ const ProductInfor = ({
     }
   };
 
-  const showToastSuccess = () => {
-    toast.success("Thêm số điện thoại thành công!");
-  };
+ 
 
   return (
     <>
@@ -104,7 +102,6 @@ const ProductInfor = ({
           key={idProduct}
         />
       )}
-      <ToastContainer />
     </>
   );
 };
