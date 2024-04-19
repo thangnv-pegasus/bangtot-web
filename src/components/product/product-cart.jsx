@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { FiMinus } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa6";
 import { IoTrashOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
+
 const ProductCart = ({ product = {}, setCart }) => {
   const [quantity, setQuantity] = useState(product.quantity || 1);
   const [image, setImage] = useState([]);
   const inputRef = useRef();
-
+  const auth = useSelector((state) => state.auth);
   const fetchImage = async () => {
     const { data } = await instance.get(`image-product/${product.id}`);
 
@@ -22,32 +24,85 @@ const ProductCart = ({ product = {}, setCart }) => {
   };
 
   const updateProduct = async (quantity) => {
-    const { data } = await instance.patch(
-      "user/update-cart",
-      {
-        productId: product.id,
-        quantity,
-        sizeId: product.idSize,
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
+    if (auth.isLogin === true) {
+      const { data } = await instance.patch(
+        "user/update-cart",
+        {
+          productId: product.id,
+          quantity,
+          sizeId: product.idSize,
         },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      setCart(data.cart);
+    } else {
+      const productLocal =
+        (await JSON.parse(localStorage.getItem("cart"))) || [];
+      let check = false;
+      let key = 0;
+      if (productLocal.length > 0) {
+        for (let index = 0; index < productLocal.length; index++) {
+          const item = productLocal[index];
+          if (item.id == product.id) {
+            check = true;
+            key = index;
+          }
+        }
       }
-    );
-    setCart(data.cart)
+      if (check === true) {
+        productLocal[key].quantity = Number(quantity);
+      }
+      localStorage.setItem("cart", JSON.stringify(productLocal));
+      setCart(productLocal);
+    }
   };
 
   const deleteProduct = async () => {
-    const { data } = await instance.delete(
-      `user/delete-product-cart/${product.cart_product_id}`,
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
+    if (auth.isLogin === true) {
+      const { data } = await instance.delete(
+        `user/delete-product-cart/${product.cart_product_id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      setCart(data.cart);
+    } else {
+      const productLocal =
+        (await JSON.parse(localStorage.getItem("cart"))) || [];
+      const cart_temp =
+        (await JSON.parse(localStorage.getItem("cart-local"))) || [];
+      let check = false;
+      let key = 0
+      let key2 = 0;
+      if (productLocal.length > 0) {
+        for (let index = 0; index < productLocal.length; index++) {
+          const item = productLocal[index];
+          if (item.id == product.id) {
+            check = true;
+            key = index;
+          }
+        }
+        for (let index = 0; index < cart_temp.length; index++) {
+          const item = cart_temp[index];
+          if(item.productId == product.id){
+            key2 = index;
+          }
+        }
       }
-    );
-    setCart(data.cart)
+      if (check === true) {
+        productLocal.splice(key, 1);
+        cart_temp.splice(key2, 1);
+      }
+      localStorage.setItem("cart", JSON.stringify(productLocal));
+      localStorage.setItem("cart-local", JSON.stringify(cart_temp));
+      setCart(productLocal);
+    }
   };
 
   useEffect(() => {
@@ -57,7 +112,7 @@ const ProductCart = ({ product = {}, setCart }) => {
   return (
     <div className="grid grid-cols-3_1_2_1 gap-x-10 py-4">
       <div className="flex px-2">
-        <div className="w-24 h-24 overflow-hidden">
+        <div className="w-auto h-24 overflow-hidden">
           <img
             src={image[0]?.name || "https://via.placeholder.com/200x200"}
             alt=""

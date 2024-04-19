@@ -47,17 +47,50 @@ const ProductDetail = () => {
     setRelatedProducts(data.related);
     setLoading(false);
   };
-
   const addToCart = async () => {
     if (auth.isLogin === false) {
-      navigate("/dang-nhap");
+      const productLocal =
+        (await JSON.parse(localStorage.getItem("cart-local"))) || [];
+      let check = false;
+      let key = 0;
+      if (productLocal.length > 0) {
+        for (let index = 0; index < productLocal.length; index++) {
+          const item = productLocal[index];
+          if (
+            item.productId == product.id &&
+            item.size.idSize == selectSize.idSize
+          ) {
+            check = true;
+            key = index;
+          }
+        }
+      }
+      if (check === true) {
+        productLocal[key].quantity += Number(quantity);
+      } else {
+        productLocal.push({
+          productId: id,
+          quantity: quantity,
+          size: selectSize,
+        });
+      }
+      localStorage.setItem("cart-local", JSON.stringify(productLocal));
+      showToastMessage();
     } else {
       try {
-        const { data } = await instance.post("user/add-to-cart", {
-          productId: id,
-          quantity: Number(quantity),
-          sizeId: Number(selectSize.idSize),
-        });
+        const { data } = await instance.post(
+          "user/add-to-cart",
+          {
+            productId: id,
+            quantity: Number(quantity),
+            sizeId: Number(selectSize.idSize),
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
         showToastMessage();
         setShowToast(true);
       } catch (e) {
@@ -82,19 +115,15 @@ const ProductDetail = () => {
   };
 
   const buyNow = () => {
-    if (auth.isLogin === false) {
-      navigate("/dang-nhap");
-    } else {
-      localStorage.setItem(
-        "temp",
-        JSON.stringify({
-          size: selectSize,
-          quantity,
-          product: product,
-        })
-      );
-      navigate("/mua-ngay");
-    }
+    localStorage.setItem(
+      "temp",
+      JSON.stringify({
+        size: selectSize,
+        quantity,
+        product: product,
+      })
+    );
+    navigate("/mua-ngay");
   };
 
   useEffect(() => {
@@ -107,10 +136,7 @@ const ProductDetail = () => {
         <Helmet>
           <meta charSet="utf-8" />
           <title>Chi tiết sản phẩm</title>
-          <meta
-            name="description"
-            content={`Thông tin chi tiết sản phẩm`}
-          />
+          <meta name="description" content={`Thông tin chi tiết sản phẩm`} />
         </Helmet>
         <div className="py-10">
           {loading === true ? (
@@ -311,7 +337,7 @@ const ProductDetail = () => {
           )}
         </div>
       </div>
-      {showToast === true && <ToastContainer />}
+      <ToastContainer />
     </Layout>
   );
 };

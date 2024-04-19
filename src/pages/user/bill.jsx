@@ -4,28 +4,44 @@ import instance from "../../axios/config";
 import ProductOrder from "../../components/product/product-order";
 import { Link } from "react-router-dom";
 import routers from "../../config/router";
-import logo from '../../logo/logo.png'
+import { useSelector } from "react-redux";
 
 const Bill = () => {
   const [order, setOrder] = useState({});
   const [products, setProducts] = useState([]);
+  const auth = useSelector((state) => state.auth);
 
   const fetchData = async () => {
-    const { data } = await instance.get("user/order-infor", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    if (auth.isLogin === true) {
+      const { data } = await instance.get("user/order-infor", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
 
-    const { order_infor, products } = data;
-    setOrder(order_infor);
-    setProducts(products);
+      const { order_infor, products } = data;
+      setOrder(order_infor);
+      setProducts(products);
+    } else {
+      if (!localStorage.getItem("order_id")) {
+      } else {
+        const order_id = await JSON.parse(localStorage.getItem("order_id"));
+        const { data } = await instance.post("guest/order-infor", {
+          order_id,
+        });
+        const { order_infor, products } = data;
+        setOrder(order_infor);
+        setProducts(products);
+      }
+    }
   };
 
   const getSum = (products = [], init = 0) => {
     const sum = products.reduce((pre_total, current) => {
       if (current.price_sale != 0) {
-        return (pre_total + current.price_sale + current.factor) * current.quantity;
+        return (
+          (pre_total + current.price_sale + current.factor) * current.quantity
+        );
       }
       return (pre_total + current.price + current.factor) * current.quantity;
     }, 0);
@@ -35,17 +51,20 @@ const Bill = () => {
 
   useEffect(() => {
     fetchData();
+
+    return () => {
+      localStorage.removeItem('cart')
+      localStorage.removeItem('order_id')
+      localStorage.removeItem('temp')
+      localStorage.removeItem('cart-local')
+    };
   }, []);
 
   return (
     <div className="bg-[#e6e8ea] w-full h-screen flex items-center justify-center">
       <div className="w-4/5">
-        <div className="block text-center pb-10 w-60 h-36 mx-auto">
-          <img
-            src={logo}
-            alt="logo"
-            className="mx-auto w-full h-full object-cover object-center"
-          />
+        <div className="block text-center pb-5 text-4xl pt-10 font-bold text-baseColor uppercase mx-auto">
+          Bàn ghế hoa mai
         </div>
         <div className="grid lg:grid-cols-6_4 grid-cols-1 py-5 gap-x-5 lg:gap-x-10">
           <div>
@@ -95,7 +114,7 @@ const Bill = () => {
             <h2 className="font-semibold py-2 px-5 border-b-[1px] border-solid border-[#e1e1e1]">
               Đơn hàng (#{order?.id})
             </h2>
-            <div className="max-h-96 overflow-y-auto px-4 my-2">
+            <div className="max-h-60 overflow-y-auto px-4 my-2">
               {products.map((item, index) => {
                 return <ProductOrder product={item} key={index} />;
               })}
@@ -123,7 +142,12 @@ const Bill = () => {
           </div>
         </div>
 
-        <Link to={routers.home} className="block w-52 mx-auto bg-orange-400 text-center mt-5 py-4 rounded-md text-lg transition-all ease-linear hover:bg-orange-600">Tiếp tục mua hàng</Link>
+        <Link
+          to={routers.home}
+          className="block w-52 mx-auto bg-orange-400 text-center mt-5 py-4 rounded-md text-lg transition-all ease-linear hover:bg-orange-600"
+        >
+          Tiếp tục mua hàng
+        </Link>
       </div>
     </div>
   );

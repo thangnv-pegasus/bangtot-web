@@ -8,6 +8,7 @@ import routers from "../../config/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "../../components/loading/spinner";
+import { useSelector } from "react-redux";
 const BuyNow = () => {
   const [product, setProduct] = useState({});
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ const BuyNow = () => {
   const noteRef = useRef();
   const [loading, setLoading] = useState(false);
   const temp = JSON.parse(localStorage.getItem("temp"));
+  const auth = useSelector((state) => state.auth);
+
   const formatNumber = (num) => {
     const x = Number(num);
 
@@ -42,34 +45,55 @@ const BuyNow = () => {
       showToastWarning();
     } else {
       setLoading(true);
-      const { data } = await instance.post(
-        "user/buy-now",
-        {
-          username: nameRef.current.value,
-          address: addressRef.current.value,
-          phone: phoneRef.current.value,
-          email: emailRef.current.value,
-          note: noteRef.current.value,
-          productId: temp.product.id,
-          quantity: temp.quantity,
-          idSize: temp.size.idSize
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
+      if (auth.isLogin === true) {
+        const { data } = await instance.post(
+          "user/buy-now",
+          {
+            username: nameRef.current.value,
+            address: addressRef.current.value,
+            phone: phoneRef.current.value,
+            email: emailRef.current.value,
+            note: noteRef.current.value,
+            productId: temp.product.id,
+            quantity: temp.quantity,
+            idSize: temp.size.idSize,
           },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        if (data.status === 200) {
+          localStorage.removeItem("temp");
         }
-      );
+      } else {
+        const { data } = await instance.post(
+          "guest/buy-now",
+          {
+            username: nameRef.current.value,
+            address: addressRef.current.value,
+            phone: phoneRef.current.value,
+            email: emailRef.current.value,
+            note: noteRef.current.value,
+            productId: temp.product.id,
+            quantity: temp.quantity,
+            idSize: temp.size.idSize,
+          },
+          {
+            method: "post",
+          }
+        );
+        localStorage.setItem('order_id',JSON.stringify(data?.order_id))
+      }
       nameRef.current.value = "";
       addressRef.current.value = "";
       phoneRef.current.value = "";
       emailRef.current.value = "";
       noteRef.current.value = "";
       setLoading(false);
+      
       navigate("/hoa-don");
-      if(data.status === 200){
-        localStorage.removeItem('temp')
-      }
     }
   };
 

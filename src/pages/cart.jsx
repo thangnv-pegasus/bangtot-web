@@ -5,18 +5,27 @@ import TitlePage from "../components/page-title";
 import ProductCart from "../components/product/product-cart";
 import { Link } from "react-router-dom";
 import routers from "../config/router";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
-
+  const auth = useSelector((state) => state.auth);
   const fetchData = async () => {
-    const { data } = await instance.get("user/cart", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-
-    setCart(data.cart);
+    if(!localStorage.getItem('cart-local')) {
+      const { data } = await instance.get("user/cart", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      setCart(data.cart);
+    }else{
+      const cartLocal = JSON.parse(localStorage.getItem('cart-local'))
+      const {data} = await instance.post('guest/cart',{
+        cart: cartLocal
+      })
+      setCart(data.cart)
+      localStorage.setItem('cart',JSON.stringify(data.cart))
+    }
   };
 
   const sumCart = () => {
@@ -67,7 +76,7 @@ const Cart = () => {
                     <ProductCart
                       product={item}
                       setCart={setCart}
-                      key={item.cart_product_id}
+                      key={index}
                     />
                   );
                 })}

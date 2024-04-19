@@ -9,6 +9,7 @@ import { IoMdSearch } from "react-icons/io";
 const ManageOrder = () => {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
+  const [orderguest, setOrderguest] = useState([])
   const [filter, setFilter] = useState({
     day: null,
     month: null,
@@ -23,9 +24,10 @@ const ManageOrder = () => {
       },
     });
 
-    const { orders, products } = data;
+    const { orders, products, order_guest } = data;
     setOrders(orders);
     setProducts(products);
+    setOrderguest(order_guest)
   };
 
   useEffect(() => {
@@ -68,7 +70,7 @@ const ManageOrder = () => {
           title="Quản lý đơn hàng"
           classes="text-xl font-medium mb-5"
         />
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <FilterOrder
             setFilter={setFilter}
             setOrder={setOrders}
@@ -86,7 +88,7 @@ const ManageOrder = () => {
               <IoMdSearch />
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex text-sm font-medium [&>div]:text-center [&>div]:select-none [&>div]:px-2 [&>div]:py-1 [&>div]:border-[1px] [&>div]:border-solid [&>div]:border-gray-300 [&>div]:border-collapse">
@@ -98,6 +100,16 @@ const ManageOrder = () => {
         <div className="w-28">Thao tác</div>
       </div>
       {orders.map((item, index) => {
+        return (
+          <RowOrder
+            order={item}
+            key={index}
+            products={products}
+            setOrders={setOrders}
+          />
+        );
+      })}
+      {orderguest.map((item, index) => {
         return (
           <RowOrder
             order={item}
@@ -152,7 +164,7 @@ const RowOrder = ({ products = [], order = {}, setOrders }) => {
       <div className="w-28 text-center">{order?.id}</div>
       <div className="w-72 text-left [&>p]:pb-1">
         <p>Tên người nhận: {order?.name}</p>
-        <p>Tên người gửi: {order?.username}</p>
+        <p>Tên người gửi: {order?.username || order?.name}</p>
         <p>Số điện thoại: {order?.phone}</p>
         <p>Email: {order?.email}</p>
         <p>Thông tin khác: {order?.note}</p>
@@ -161,7 +173,7 @@ const RowOrder = ({ products = [], order = {}, setOrders }) => {
       <div className="flex-1">
         {products.map((item, index) => {
           if (item.idOrder === order.id) {
-            return <ProductOrder product={item} key={index} />;
+            return <ProductOrder product={item}  key={index} />;
           }
         })}
       </div>

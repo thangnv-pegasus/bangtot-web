@@ -8,6 +8,7 @@ import routers from "../../config/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "../../components/loading/spinner";
+import { useSelector } from "react-redux";
 const Order = () => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
@@ -17,15 +18,21 @@ const Order = () => {
   const emailRef = useRef();
   const noteRef = useRef();
   const [loading, setLoading] = useState(false);
+  const auth = useSelector((state) => state.auth);
 
   const fetchData = async () => {
-    const { data } = await instance.get("user/cart", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    if (auth.isLogin === true) {
+      const { data } = await instance.get("user/cart", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
 
-    setCart(data.cart);
+      setCart(data.cart);
+    } else {
+      const cartLocal = await JSON.parse(localStorage.getItem("cart"));
+      setCart(cartLocal);
+    }
   };
 
   const total = (arr) => {
@@ -59,26 +66,51 @@ const Order = () => {
       showToastWarning();
     } else {
       setLoading(true);
-      const { data } = await instance.post(
-        "user/order",
-        {
-          username: nameRef.current.value,
-          address: addressRef.current.value,
-          phone: phoneRef.current.value,
-          email: emailRef.current.value,
-          note: noteRef.current.value,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
+      if (auth.isLogin === true) {
+        const { data } = await instance.post(
+          "user/order",
+          {
+            username: nameRef.current.value,
+            address: addressRef.current.value,
+            phone: phoneRef.current.value,
+            email: emailRef.current.value,
+            note: noteRef.current.value,
           },
-        }
-      );
-      nameRef.current.value = "";
-      addressRef.current.value = "";
-      phoneRef.current.value = "";
-      emailRef.current.value = "";
-      noteRef.current.value = "";
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        nameRef.current.value = "";
+        addressRef.current.value = "";
+        phoneRef.current.value = "";
+        emailRef.current.value = "";
+        noteRef.current.value = "";
+      } else {
+        const { data } = await instance.post(
+          "guest/order",
+          {
+            username: nameRef.current.value,
+            address: addressRef.current.value,
+            phone: phoneRef.current.value,
+            email: emailRef.current.value,
+            note: noteRef.current.value,
+            cart
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        nameRef.current.value = "";
+        addressRef.current.value = "";
+        phoneRef.current.value = "";
+        emailRef.current.value = "";
+        noteRef.current.value = "";
+        localStorage.setItem('order_id',JSON.stringify(data.order_id))
+      }
       setLoading(false);
       navigate("/hoa-don");
     }
